@@ -236,8 +236,8 @@ makeblastdb -in  custom.fasta -dbtype nucl
 then edit the lib/config.pm file to point to the fasta file   
 ```	  
 our %RefDB=(
-BiBi16S => "/pathto/leBiBicustomDB/custom.fasta",
+   BiBi16S => "/pathto/leBiBicustomDB/custom.fasta",
 );
 ```	  
-
+and indicate _BiBi16S_ as the database parameter in the LORCAN script.   
 
