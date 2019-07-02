@@ -233,3 +233,11 @@ perl CleanNameFileLeBiBi.pl custom.synonymous.names > custom_simplified.names
 module load Blast/blast/2.6.0
 makeblastdb -in  custom.fasta -dbtype nucl   
 ```	  
+then edit the lib/config.pm file to point to the fasta file   
+```	  
+our %RefDB=(
+BiBi16S => "/pathto/leBiBicustomDB/custom.fasta",
+);
+```	  
+
+
