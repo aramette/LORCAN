@@ -3,25 +3,25 @@ LORCAN "LOng Read Consenus ANalysis"
 ====================================
 LORCAN v1.8
 
-# DESCRIPTION:
+# DESCRIPTION
 Using nanopore reads in fastq format, the pipeline produces consensus sequences     
 for each barcoded sample, based on best match to a reference database.    
 
-# PARAMETERS:
-*Input dir 		
+# PARAMETERS
+**Input dir** 		
    The path to the directory containing the fastq files (not demultiplexed)    
 		
-*Output dir path
+**Output dir path**
    Path to the output directory. The "output" directory is automatically created and appended to the path.    
 		
-*Number of cpus
+**Number of cpus**
 The max value is the value available on the current system.		
 		
-*Minimum number of reads per barcoded sample (threshold)
+**Minimum number of reads per barcoded sample (threshold)**
 The number of reads per taxonomic group under which the consensus per taxonomic group 		
 will not be calculated.		
 		
-*Databases
+**Databases**
 A database flat file (fasta) needs to be obtained and formatted to be compatible with BLASTN     
 
 This is an example of formating for SSU-rDNA-mk37/16S_TS-stringent_dedup.fasta (leBiBi) database:   
@@ -39,11 +39,11 @@ A utility script can be found in lib/CreateTaxoDict_LeBiBI16S.pl to prepare such
 		
 Other databases can be added by modifying the config.pm file appropriately.   
 		
-*Email address
+**Email address**
 Under normal mode, an email is sent to the provided email address when the job is complete.    
 When verbose mode is on, no email is sent.   
 
-*Verbose mode
+**Verbose mode**
 When on, more detailed output is provided. When off, several intermediary files are removed.    
 		
 		
@@ -52,7 +52,7 @@ When on, more detailed output is provided. When off, several intermediary files 
 This file contains the absolute paths to the dependencies (executable, databases).    
 	Each field may need to be changed depending on your own configuration and system.    
 
-# Example:
+# Example
 `
 FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/   
 cwd=/Analyses/Pipelines/dev/LORCAN/v1.8   
