@@ -52,9 +52,11 @@ When on, more detailed output is provided. When off, several intermediary files 
 This file contains the absolute paths to the dependencies (executable, databases).    
 	Each field may need to be changed depending on your own configuration and system.    
 
-# Examples:
-`FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/`   
-`cwd=/Analyses/Pipelines/dev/LORCAN/v1.8`   
-`/pathto/main.pl -V -i $FastqDir -o $cwd/20190213_x3_Amplikon_2 -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`     
+# Example:
+`
+FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/   
+cwd=/Analyses/Pipelines/dev/LORCAN/v1.8   
+/pathto/main.pl -V -i $FastqDir -o $cwd/20190213_x3_Amplikon_2 -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong
+`     
 
 		
