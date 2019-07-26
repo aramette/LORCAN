@@ -10,22 +10,23 @@ for each barcoded sample, based on best match to a reference database.
 # PARAMETERS        
 
 Arguments:      
--h help information      
-	-V verbose mode (for debugging)
-	-v version number
-	-d choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer) 
-	-D choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp). 
-	-E Email address: e.g.  your.name\@your.institute.com 
-	-i directory containing the fastq files (full path)
-	-I the full path to the sample id file (what is after # is a comment not read; RunName:/Date:/BCnber: no space)
-	-L log file name e.g. log.txt (not the path)  
-	-m minimum number of reads per barcode to further proceed  
-	-M maximum number of reads to retain per sample (e.g. 3000)
-	-n Nber of threads e.g. 20 
-	-o Full path to the output directory e.g. /path_to/output  
-	-P minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads)  
-Usage example:
-	perl lib/main.pl -V -i \$testDataDir -n 20 -m 10 -o $cwd/output_test_main_16S_delta5 -I $cwd/sample_id.txt -L log_main.txt -P 30 -D 5 -d BiBi16S
+**-h** help information            
+**-V** verbose mode (for debugging)      
+**-v** version number      
+**-d** choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer)       
+**-D** choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).       
+**-E** Email address: e.g.  your.name\@your.institute.com       
+**-i** directory containing the fastq files (full path)      
+**-I** the full path to the sample id file (what is after # is a comment not read; RunName:/Date:/BCnber: no space)      
+**-L** log file name e.g. log.txt (not the path)        
+**-m** minimum number of reads per barcode to further proceed        
+**-M** maximum number of reads to retain per sample (e.g. 3000)      
+**-n** Nber of threads e.g. 20       
+**-o** Full path to the output directory e.g. /path_to/output        
+**-P** minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads)        
+
+# Usage example   
+`perl lib/main.pl -V -i \$testDataDir -n 20 -m 10 -o $cwd/output_test_main_16S_delta5 -I $cwd/sample_id.txt -L log_main.txt -P 30 -D 5 -d BiBi16S`      
 	
 **Input dir**     		
 The path to the directory containing the fastq files (not demultiplexed).          
