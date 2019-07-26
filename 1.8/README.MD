@@ -4,7 +4,7 @@ LORCAN "LOng Read Consenus ANalysis"
 LORCAN v1.8
 
 # DESCRIPTION
-...Using nanopore reads in fastq format, the pipeline produces consensus sequences     
+...Using nanopore reads in fastq format, the pipeline produces consensus sequences..     
 for each barcoded sample, based on best match to a reference database.    
 
 # PARAMETERS
