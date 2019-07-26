@@ -8,8 +8,8 @@ Using nanopore reads in fastq format, the pipeline produces consensus sequences.
 for each barcoded sample, based on best match to a reference database.    
 
 # PARAMETERS   
-**Input dir**       		
-The path to the directory containing the fastq files (not demultiplexed)    
+**Input dir**     		
+The path to the directory containing the fastq files (not demultiplexed).          
 		
 **Output dir path**   
 Path to the output directory. The "output" directory is automatically created and appended to the path.    
