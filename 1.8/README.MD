@@ -7,10 +7,10 @@ LORCAN v1.8
 Using nanopore reads in fastq format, the pipeline produces consensus sequences..     
 for each barcoded sample, based on best match to a reference database.    
 
-# PARAMETERS  
+# PARAMETERS        
 
-Arguments:
-	-h help information....
+Arguments:      
+-h help information      
 	-V verbose mode (for debugging)
 	-v version number
 	-d choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer) 
