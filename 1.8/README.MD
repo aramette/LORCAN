@@ -3,25 +3,25 @@ LORCAN "LOng Read Consenus ANalysis"
 ====================================
 LORCAN v1.8
 
-# DESCRIPTION
+# DESCRIPTION   
 Using nanopore reads in fastq format, the pipeline produces consensus sequences..     
 for each barcoded sample, based on best match to a reference database.    
 
-# PARAMETERS
-**Input dir** 		
+# PARAMETERS   
+**Input dir**       		
 The path to the directory containing the fastq files (not demultiplexed)    
 		
-**Output dir path**
+**Output dir path**   
 Path to the output directory. The "output" directory is automatically created and appended to the path.    
 		
-**Number of cpus**
+**Number of cpus**   
 The max value is the value available on the current system.		
 		
-**Minimum number of reads per barcoded sample (threshold)**
+**Minimum number of reads per barcoded sample (threshold)**   
 The number of reads per taxonomic group under which the consensus per taxonomic group 		
 will not be calculated.		
 		
-**Databases**
+**Databases**   
 A database flat file (fasta) needs to be obtained and formatted to be compatible with BLASTN, as follows.     
 
 `module load Blast/blast/2.6.0` #system specific     
@@ -34,7 +34,7 @@ A corresponding .taxdict.csv file must be prepared using the same database file 
 
 Other databases can be added by modifying the config.pm file appropriately.    
 
-**taxdict.csv file**
+**taxdict.csv file**   
 For each entry of the database file, the taxdict.csv file contains the following fields:     
 [Accession number],[taxonomic classication],[full fasta header information]      
 e.g. URS00000B1AF5,Abiotrophia_defectiva,Abiotrophia_defectiva~v~TT~URS00000B1AF5=Bacteria-Fir      
@@ -43,7 +43,7 @@ A utility script can be found in lib/CreateTaxoDict_LeBiBI16S.pl to prepare such
 		
       
 		
-**Email address**
+**Email address**   
 Under normal mode, an email is sent to the provided email address when the job is complete.    
 When verbose mode is on, no email is sent.   
 
@@ -51,7 +51,7 @@ When verbose mode is on, no email is sent.
 When selected, more detailed output is provided. When off, several intermediary files are removed.    
 		
 		
-# CONFIGURATION:
+# CONFIGURATION   
 **config.pm**   
 This file contains the absolute paths to the dependencies (executable, databases).    
 Each field may need to be changed depending on your own configuration and system.    
