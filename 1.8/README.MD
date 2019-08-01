@@ -22,10 +22,13 @@ If you read “bash: conda: command not found...”, then the conda installation
 Otherwise, you should see some text in the console, starting with "#packages in environment at...".       
 
 2.	Create environment     
-`module load conda/3 #this depends on your system     
-conda create -n LORCAN-env      
-source activate LORCAN-env      
+`module load conda/3 #this depends on your system        
+
+conda create -n LORCAN-env         
+
+source activate LORCAN-env         
 `
+
 3.	Install the dependencies (**NOTETOS: cf LORCAN main script for Perl scripts, and config.pm file too      
 **NOTETOS: (Give precise version numbers too for the installation)       
 
