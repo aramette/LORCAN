@@ -3,21 +3,23 @@ LORCAN "LOng Read Consenus ANalysis"
 ====================================
 LORCAN version: 1.8
 
-# DESCRIPTION   
+# SHORT DESCRIPTION   
 From basecalled nanopore reads in FASTQ format, the pipeline produces consensus sequences     
-for each barcoded sample, based on read alignment to best matches from a customized reference database.    
+for each barcoded sample, based on read alignment to best matches from a customized reference database.  
+All analysis steps are automated and a final report (PDF) is produced for each barcoded sample.      
 
 # INSTALLATION INSTRUCTIONS      
 **Disclaimer**: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
 and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
-The recommended way is to use a conda (anaconda, miniconda) environment to install the software.     
+The recommended way is to use a conda (anaconda, miniconda) environment to install the software and its dependencies.     
 
-Step-by-step installation guide using a conda environment     
+Step-by-step installation guide using a conda environment:     
 1.	Install conda     
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html     
-To test your installation, in your terminal window or Anaconda Prompt, run the >conda list     
-If “bash: conda: command not found...” then the installation was not successful.     
+To test your installation, in your terminal window or Anaconda Prompt, run `conda list`     
+If you read “bash: conda: command not found...”, then the conda installation was not successful and LORCAN cannot be installed with conda.     
+Otherwise, you should see an output starting with "#packages in environment at...".       
 
 2.	Create environment     
 
@@ -74,7 +76,7 @@ also path to db and blast
 **-v** version number      
 **-d** choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer)       
 **-D** choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).       
-**-E** Email address: e.g.  your.name\@your.institute.com       
+**-E** email address: e.g.  your.name\@your.institute.com       
 **-i** directory containing the basecalled FASTQ files (full path)      
 **-I** the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by      
 	the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report. 
@@ -90,8 +92,8 @@ also path to db and blast
 **-L** log file name e.g. log.txt (not the path)        
 **-m** minimum number of reads per barcode to further proceed        
 **-M** maximum number of reads to retain per sample (e.g. 3000)      
-**-n** Nber of threads e.g. 20       
-**-o** Full path to the output directory e.g. /path_to/output        
+**-n** nber of threads e.g. 20       
+**-o** full path to the output directory e.g. /path_to/output        
 **-P** minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads)        
 
 # Usage example   
@@ -154,4 +156,7 @@ Each field may need to be changed depending on your own configuration and system
 `/pathto/main.pl -V -i $FastqDir -o $cwd/20190213_x3_Amplikon_2 -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`
      
 
-		
+# How to cite?       		
+xxxx.    
+
+
