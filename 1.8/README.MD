@@ -12,20 +12,20 @@ All analysis steps are automated and a final report (PDF) is produced for each b
 **Disclaimer**: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
 and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
-The recommended way is to use a conda (anaconda, miniconda) environment to install the software and its dependencies.     
+The recommended way is to use a *conda* (*anaconda*, *miniconda*) environment to install the software and its dependencies.     
 
-Here is a step-by-step installation guide using a conda environment:     
-1.	If not yet done, install conda     
+Here is a step-by-step installation guide using a *conda* environment:     
+1.	If not yet done, install *conda*     
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html     
 To test your installation, in your terminal window or Anaconda Prompt, run `conda list`     
 If you read “bash: conda: command not found...”, then the conda installation was not successful and LORCAN cannot be installed with conda.     
-Otherwise, you should see an output starting with "#packages in environment at...".       
+Otherwise, you should see some text in the console, starting with "#packages in environment at...".       
 
 2.	Create environment     
-
-module load conda/3 #this depends on your system     
+`module load conda/3 #this depends on your system     
 conda create -n LORCAN-env      
 source activate LORCAN-env      
+`
 3.	Install the dependencies (**NOTETOS: cf LORCAN main script for Perl scripts, and config.pm file too      
 **NOTETOS: (Give precise version numbers too for the installation)       
 
