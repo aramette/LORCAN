@@ -1,7 +1,7 @@
 
-LORCAN "LOng Read Consenus ANalysis" 	 
+LORCAN "LOng Read Consensus ANalysis" 	 
 ====================================
-LORCAN version: 1.8
+LORCAN version: **1.8**
 
 ## SHORT DESCRIPTION   
 From basecalled nanopore reads in FASTQ format, the pipeline produces consensus sequences     
@@ -15,20 +15,20 @@ and may only work in a GNU/Linux environment. Other OS have not been tested and 
 The recommended way is to use a *conda* (*anaconda*, *miniconda*) environment to install the software and its dependencies.     
 
 Here is a step-by-step installation guide using a *conda* environment:     
-1.	If not yet done, install *conda*     
+1.	If not yet done, install *conda*:     
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html     
 To test your installation, in your terminal window or Anaconda Prompt, run `conda list`     
 If you read “bash: conda: command not found...”, then the conda installation was not successful and LORCAN cannot be installed with conda.     
 Otherwise, you should see some text in the console, starting with "#packages in environment at...".       
 
-2.	Create environment     
+2.	Create a dedicated environment (to do once):     
 ```
 conda create -n LORCAN-env         
-source activate LORCAN-env         
 ```
 
-3.	Install the dependencies       
+3.	Install the dependencies in the activated environment:      
 ```
+source activate LORCAN-env         
 conda install seqkit=0.8.0; seqkit version #OK       
 conda install porechop=0.2.3_seqan2.1.1
 conda install mafft=v7.313
@@ -53,7 +53,9 @@ source deactivate LORCAN-env
 ```
 
 4.	Download the binaries from github:          
-
+```
+xxxxxxxxxxxxxxxxxx     
+```
 4.	Pull the git       
 5.	Test -h       
 6.	Close env       
