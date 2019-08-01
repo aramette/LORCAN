@@ -4,8 +4,78 @@ LORCAN "LOng Read Consenus ANalysis"
 LORCAN v1.8
 
 # DESCRIPTION   
-Using nanopore reads in fastq format, the pipeline produces consensus sequences..     
+Using nanopore reads in FASTQ format, the pipeline produces consensus sequences     
 for each barcoded sample, based on best match to a reference database.    
+
+
+# INSTALLATION INSTRUCTIONS      
+Disclaimer: the pipeline may only work in GNU/Linux environment,    
+and was developed on Scientific Linux 7.4 (x86-64 server architecture).     
+
+
+
+Step-by-step installation guide using a conda environment
+1.	Install conda
+https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
+To test your installation, in your terminal window or Anaconda Prompt, run the >conda list
+If “bash: conda: command not found...” then the installation was not successful
+
+2.	Create environment
+
+module load conda/3 #this depends on your system
+conda create -n LORCAN-env 
+source activate LORCAN-env 
+3.	Install the dependencies (cf LORCAN main script for Perl scripts, and config.pm file too 
+(Give precise version numbers too for the installation)
+
+[OK] conda install seqkit=0.8.0; seqkit version #OK
+[OK] conda install porechop; porechop --version #OK
+[OK] conda install mafft ; mafft --version #OK			
+[OK] conda install Gblocks ;   # OK needed ?		
+[OK] conda install iqtree=1.6.11	      #OK	
+       [OK] conda install minimap2=2.17	
+       [OK] conda install samtools
+       [OK] conda install BLAST
+       [OK] cpanm Parallel::ForkManager #OK	
+       [OK] cpanm FindBin
+       [OK] cpanm PDF::API2
+
+
+
+source deactivate LORCAN-env 
+conda clean --tarballs; conda clean --package #to save some space
+
+4.	Pull the git
+5.	Test -h
+6.	Close env
+
+What to modify before starting:
+
+Taxdict file 
+Db (custom if needed, blast)
+
+Config.pm
+(create s script to find the dependencies to be put in the config.file “which blast”)
+our $PERL			="/software/KM/perl5/perlbrew/perls/perl-5.28.0/bin/perl";
+our $PORECHOP		="/software_conda/3/bin/porechop";		
+our $samtools		="module load UHTS/samtools/1.4;samtools";		
+our $BLASTN			="module load Blast/blast/2.6.0;blastn";
+our $Rscript 		="/software/KM/R-3.5.0_KM_WGS/bin/Rscript";
+our $mafft 			="/software_conda/3/bin/mafft";
+our $Gblocks		="/software_conda/3/bin/Gblocks";
+our $iqtree			="/software_conda/3/bin/iqtree";
+also path to db and blast
+
+
+
+
+
+
+
+
+
+
+
 
 # PARAMETERS        
 
@@ -16,8 +86,18 @@ Arguments:
 **-d** choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer)       
 **-D** choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).       
 **-E** Email address: e.g.  your.name\@your.institute.com       
-**-i** directory containing the fastq files (full path)      
-**-I** the full path to the sample id file (what is after # is a comment not read; RunName:/Date:/BCnber: no space)      
+**-i** directory containing the basecalled FASTQ files (full path)      
+**-I** the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by      
+	the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report. 
+	This is an example of file with 3 barcoded samples:     
+	`
+	RunName:20190220_x4_Amplikon      
+	RunDate:21.02.2019      	
+	#      
+	BC17:2019-067      	
+	BC18:2019-068      	
+	BC19:2019-069      
+	`
 **-L** log file name e.g. log.txt (not the path)        
 **-m** minimum number of reads per barcode to further proceed        
 **-M** maximum number of reads to retain per sample (e.g. 3000)      
