@@ -48,19 +48,31 @@ To save some space, optionally remove unneeded files:
 conda clean --tarballs; conda clean --package        
 ```
 
-To exit from the LORCAN-env, type: 
+
+4.	Clone the binaries from github to your own environment:          
+(move first to the directory where you want LORCAN to reside)      
 ```
-source deactivate LORCAN-env        
+git clone https://github.com/aramette/LORCAN.git    
 ```
 
-4.	Download the binaries from github:          
+5.	Test whether the pipeline is correctly installed:    
 ```
-xxxxxxxxxxxxxxxxxx     
+cd LORCAN/1.8/lib
+perl lorcan.pl -h
 ```
-4.	Pull the git       
-5.	Test -h       
-6.	Close env       
 
+5.	General configuration (to be done once per system)       
+Before starting an analysis, the following files must be modified based on your installation:      
+
+give examples_files of file
+
+
+
+```
+```
+5.	Test *LORCAN*            
+```
+```
 
 What to modify before starting:       
 
@@ -78,6 +90,11 @@ our $mafft 			="/software_conda/3/bin/mafft";
 our $Gblocks		="/software_conda/3/bin/Gblocks";       
 our $iqtree			="/software_conda/3/bin/iqtree";       
 also path to db and blast       
+
+To exit from the LORCAN-env, type: 
+```
+source deactivate LORCAN-env        
+```
 
 
 # PARAMETERS        
@@ -165,7 +182,7 @@ Each field may need to be changed depending on your own configuration and system
 
 `cwd=/Analyses/Pipelines/dev/LORCAN/v1.8`   
 
-`/pathto/main.pl -V -i $FastqDir -o $cwd/20190213_x3_Amplikon_2 -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`
+`/pathto/lorcan.pl -V -i $FastqDir -o $cwd/20190213_x3_Amplikon_2 -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`
      
 
 # How to cite?       		
