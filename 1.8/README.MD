@@ -27,29 +27,37 @@ conda create -n LORCAN-env
 source activate LORCAN-env         
 ```
 
-3.	Install the dependencies (**NOTETOS: cf LORCAN main script for Perl scripts, and config.pm file too      
-**NOTETOS: (Give precise version numbers too for the installation)       
+3.	Install the dependencies       
+```
+conda install seqkit=0.8.0; seqkit version #OK       
+conda install porechop=0.2.3_seqan2.1.1
+conda install mafft=v7.313
+conda install Gblocks           		
+conda install iqtree=1.6.11	             	
+conda install minimap2=2.17	       
+conda install samtools       
+conda install BLAST       
+cpanm Parallel::ForkManager 	       
+cpanm FindBin       
+cpanm PDF::API2       
+```
 
-[OK] conda install seqkit=0.8.0; seqkit version #OK       
-[OK] conda install porechop; porechop --version #OK       
-[OK] conda install mafft ; mafft --version #OK       			
-[OK] conda install Gblocks ;   # OK needed ?       		
-[OK] conda install iqtree=1.6.11	      #OK       	
-       [OK] conda install minimap2=2.17	       
-       [OK] conda install samtools       
-       [OK] conda install BLAST       
-       [OK] cpanm Parallel::ForkManager #OK	       
-       [OK] cpanm FindBin       
-       [OK] cpanm PDF::API2       
-
-
-
-source deactivate LORCAN-env        
+To save some space, optionally remove unneeded files:    
+```
 conda clean --tarballs; conda clean --package #to save some space       
+```
+
+To exit from the LORCAN-env, type: 
+```
+source deactivate LORCAN-env        
+```
+
+4.	Download the binaries from github:          
 
 4.	Pull the git       
 5.	Test -h       
 6.	Close env       
+
 
 What to modify before starting:       
 
