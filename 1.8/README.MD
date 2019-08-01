@@ -1,85 +1,74 @@
 
 LORCAN "LOng Read Consenus ANalysis" 	 
 ====================================
-LORCAN v1.8
+LORCAN version: 1.8
 
 # DESCRIPTION   
-Using nanopore reads in FASTQ format, the pipeline produces consensus sequences     
-for each barcoded sample, based on best match to a reference database.    
-
+From basecalled nanopore reads in FASTQ format, the pipeline produces consensus sequences     
+for each barcoded sample, based on read alignment to best matches from a customized reference database.    
 
 # INSTALLATION INSTRUCTIONS      
-Disclaimer: the pipeline may only work in GNU/Linux environment,    
-and was developed on Scientific Linux 7.4 (x86-64 server architecture).     
+**Disclaimer**: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
+and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
+
+The recommended way is to use a conda (anaconda, miniconda) environment to install the software.     
+
+Step-by-step installation guide using a conda environment     
+1.	Install conda     
+https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html     
+To test your installation, in your terminal window or Anaconda Prompt, run the >conda list     
+If “bash: conda: command not found...” then the installation was not successful.     
+
+2.	Create environment     
+
+module load conda/3 #this depends on your system     
+conda create -n LORCAN-env      
+source activate LORCAN-env      
+3.	Install the dependencies (**NOTETOS: cf LORCAN main script for Perl scripts, and config.pm file too      
+**NOTETOS: (Give precise version numbers too for the installation)       
+
+[OK] conda install seqkit=0.8.0; seqkit version #OK       
+[OK] conda install porechop; porechop --version #OK       
+[OK] conda install mafft ; mafft --version #OK       			
+[OK] conda install Gblocks ;   # OK needed ?       		
+[OK] conda install iqtree=1.6.11	      #OK       	
+       [OK] conda install minimap2=2.17	       
+       [OK] conda install samtools       
+       [OK] conda install BLAST       
+       [OK] cpanm Parallel::ForkManager #OK	       
+       [OK] cpanm FindBin       
+       [OK] cpanm PDF::API2       
 
 
 
-Step-by-step installation guide using a conda environment
-1.	Install conda
-https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
-To test your installation, in your terminal window or Anaconda Prompt, run the >conda list
-If “bash: conda: command not found...” then the installation was not successful
+source deactivate LORCAN-env        
+conda clean --tarballs; conda clean --package #to save some space       
 
-2.	Create environment
+4.	Pull the git       
+5.	Test -h       
+6.	Close env       
 
-module load conda/3 #this depends on your system
-conda create -n LORCAN-env 
-source activate LORCAN-env 
-3.	Install the dependencies (cf LORCAN main script for Perl scripts, and config.pm file too 
-(Give precise version numbers too for the installation)
+What to modify before starting:       
 
-[OK] conda install seqkit=0.8.0; seqkit version #OK
-[OK] conda install porechop; porechop --version #OK
-[OK] conda install mafft ; mafft --version #OK			
-[OK] conda install Gblocks ;   # OK needed ?		
-[OK] conda install iqtree=1.6.11	      #OK	
-       [OK] conda install minimap2=2.17	
-       [OK] conda install samtools
-       [OK] conda install BLAST
-       [OK] cpanm Parallel::ForkManager #OK	
-       [OK] cpanm FindBin
-       [OK] cpanm PDF::API2
+Taxdict file        
+Db (custom if needed, blast)       
 
-
-
-source deactivate LORCAN-env 
-conda clean --tarballs; conda clean --package #to save some space
-
-4.	Pull the git
-5.	Test -h
-6.	Close env
-
-What to modify before starting:
-
-Taxdict file 
-Db (custom if needed, blast)
-
-Config.pm
-(create s script to find the dependencies to be put in the config.file “which blast”)
-our $PERL			="/software/KM/perl5/perlbrew/perls/perl-5.28.0/bin/perl";
-our $PORECHOP		="/software_conda/3/bin/porechop";		
-our $samtools		="module load UHTS/samtools/1.4;samtools";		
-our $BLASTN			="module load Blast/blast/2.6.0;blastn";
-our $Rscript 		="/software/KM/R-3.5.0_KM_WGS/bin/Rscript";
-our $mafft 			="/software_conda/3/bin/mafft";
-our $Gblocks		="/software_conda/3/bin/Gblocks";
-our $iqtree			="/software_conda/3/bin/iqtree";
-also path to db and blast
-
-
-
-
-
-
-
-
-
-
+Config.pm       
+(create s script to find the dependencies to be put in the config.file “which blast”)       
+our $PERL			="/software/KM/perl5/perlbrew/perls/perl-5.28.0/bin/perl";       
+our $PORECHOP		="/software_conda/3/bin/porechop";       
+our $samtools		="module load UHTS/samtools/1.4;samtools";       		
+our $BLASTN			="module load Blast/blast/2.6.0;blastn";       
+our $Rscript 		="/software/KM/R-3.5.0_KM_WGS/bin/Rscript";       
+our $mafft 			="/software_conda/3/bin/mafft";       
+our $Gblocks		="/software_conda/3/bin/Gblocks";       
+our $iqtree			="/software_conda/3/bin/iqtree";       
+also path to db and blast       
 
 
 # PARAMETERS        
 
-Arguments:      
+**Arguments:**      
 **-h** help information            
 **-V** verbose mode (for debugging)      
 **-v** version number      
