@@ -1,5 +1,0 @@
-RunName:20190227_x5 
-RunDate:28.02.2019
-# 	
-BC40:2019-085-16S
-BC41:2019-PosControl
