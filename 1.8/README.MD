@@ -36,15 +36,16 @@ conda install Gblocks
 conda install iqtree=1.6.11	             	
 conda install minimap2=2.17	       
 conda install samtools       
-conda install BLAST       
+conda install blast       
 cpanm Parallel::ForkManager 	       
-cpanm FindBin       
+cpanm FindBin
+conda install -c anaconda gcc_linux-64
 cpanm PDF::API2       
 ```
 
 To save some space, optionally remove unneeded files:    
 ```
-conda clean --tarballs; conda clean --package #to save some space       
+conda clean --tarballs; conda clean --package        
 ```
 
 To exit from the LORCAN-env, type: 
