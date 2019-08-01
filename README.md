@@ -1,5 +1,7 @@
 *LORCAN* "LOng Read Consensus ANalysis" 	 
-======================================
+======================================        
+
+
 
 ## SHORT DESCRIPTION   
 From basecalled nanopore reads in FASTQ format, the pipeline produces consensus sequences     
