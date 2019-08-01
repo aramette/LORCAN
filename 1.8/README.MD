@@ -3,19 +3,19 @@ LORCAN "LOng Read Consenus ANalysis"
 ====================================
 LORCAN version: 1.8
 
-# SHORT DESCRIPTION   
+## SHORT DESCRIPTION   
 From basecalled nanopore reads in FASTQ format, the pipeline produces consensus sequences     
 for each barcoded sample, based on read alignment to best matches from a customized reference database.  
 All analysis steps are automated and a final report (PDF) is produced for each barcoded sample.      
 
-# INSTALLATION INSTRUCTIONS      
+## INSTALLATION INSTRUCTIONS      
 **Disclaimer**: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
 and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
 The recommended way is to use a conda (anaconda, miniconda) environment to install the software and its dependencies.     
 
-Step-by-step installation guide using a conda environment:     
-1.	Install conda     
+Here is a step-by-step installation guide using a conda environment:     
+1.	If not yet done, install conda     
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html     
 To test your installation, in your terminal window or Anaconda Prompt, run `conda list`     
 If you read “bash: conda: command not found...”, then the conda installation was not successful and LORCAN cannot be installed with conda.     
