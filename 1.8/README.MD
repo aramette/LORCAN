@@ -8,7 +8,7 @@ From basecalled nanopore reads in FASTQ format, the pipeline produces consensus 
 for each barcoded sample, based on read alignment to best matches from a customized reference database.  
 All analysis steps are automated and a final report (PDF) is produced for each barcoded sample.      
 
-## INSTALLATION INSTRUCTIONS      
+## INSTALLATION       
 **Disclaimer**: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
 and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
@@ -49,7 +49,7 @@ conda clean --tarballs; conda clean --package
 ```
 
 
-4.	Clone the binaries from github to your own environment:          
+4.	Clone the binaries from GitHub to your own machine:          
 (move first to the directory where you want LORCAN to reside)      
 ```
 git clone https://github.com/aramette/LORCAN.git    
@@ -61,7 +61,9 @@ cd LORCAN/1.8/lib
 perl lorcan.pl -h
 ```
 
-5.	General configuration (to be done once per system)       
+## CONFIGURATIONS
+### 1) overall configuration (to be done once per system)
+   
 Before starting an analysis, the following files must be modified based on your installation:      
 
 give examples_files of file
