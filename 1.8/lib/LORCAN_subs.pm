@@ -41,7 +41,6 @@ sub R0_test_dependencies{
 	my $PORECHOP		=$args->{PORECHOP};
 	my $minimap2		=$args->{minimap2};
 	my $samtools		=$args->{samtools};
-	my $cutadapt		=$args->{cutadapt};
 	my $BLASTN			=$args->{BLASTN};
 	my $Rscript			=$args->{Rscript};
 	my $REF_FP			=$args->{REF_FP};# $RefDB{$DBchoice}; # %RefDB defined in config.pm file
@@ -71,11 +70,6 @@ sub R0_test_dependencies{
   if($samtools_test =~/"not found"/){
 		say "!!! Could not find samtools binary. Exiting"; exit;
   }
-  my $cutadapt_test=qx($cutadapt --version); chomp $cutadapt_test;
-  if($cutadapt_test =~/"not found"/){
-		say "!!! Could not find cutadapt binary. Exiting"; exit;
-  }
-  
   my $BLASTN_test=qx($BLASTN -version); chomp $BLASTN_test;
   if($BLASTN_test =~/"not found"/){
 		say "!!! Could not find BLASTN binary. Exiting"; exit;
