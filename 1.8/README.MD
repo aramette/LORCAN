@@ -224,7 +224,6 @@ LORCAN -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/sample_id.txt -n
 
 
 After few minutes, the /LORCAN/myOutput folder contains the following structure:
-
 myOutput/
  |_ 0_logs/
  | 	  |_ log_main.txt						 (overall run log)       
@@ -238,34 +237,34 @@ myOutput/
  |_ 2_individual_barcodes/					 
  |	  |_ BC30/								 (for each BC, one folder is created)      
  |			|_ 01_mapping_reads_to_refDB/	  (contains the files used for mapping all mode closest reads to the chosen reference database)      
- |			|				|_ aln.bam
- |			|				|_ aln.prim.bam
- |			|				|_ aln.prim.bam.bai
- |			|				|_ aln.prim.bam.stats
- |			|				|_ aln.prim.sam
- |			|				|_ aln.sam
- |			|				|_ aln.sorted.bam
- |			|				|_ list.mapped
- |			|				|_ list.mappedS
- |			|				|_ list.mapped.taxo
- |			|				|_ new.prim.bam
- |			|				|_ new.prim.bam.bai
- |			|				|_ new.sam
+ |			|				|_ aln.bam				(only if -V flag is used)
+ |			|				|_ aln.prim.bam			(only if -V flag is used)
+ |			|				|_ aln.prim.bam.bai		(only if -V flag is used)
+ |			|				|_ aln.prim.bam.stats	(only if -V flag is used)
+ |			|				|_ aln.prim.sam			(only if -V flag is used)
+ |			|				|_ aln.sam				(only if -V flag is used)
+ |			|				|_ aln.sorted.bam		(only if -V flag is used)
+ |			|				|_ list.mapped			(only if -V flag is used)
+ |			|				|_ list.mappedS			(only if -V flag is used)
+ |			|				|_ list.mapped.taxo		
+ |			|				|_ new.prim.bam			(only if -V flag is used)
+ |			|				|_ new.prim.bam.bai		(only if -V flag is used)
+ |			|				|_ new.sam				(only if -V flag is used)
  |			|_ 02_individual_consensus/					(for each taxonomic level with enough reads, a consensus sequence is derived)
- |			|				|_ genus_species_consensus/  (one folder per taxonomic level with alignment files)      
- |			|				|        |_ aln1.bam
- |			|				|        |_ aln1.mpileup
- |			|				|        |_ aln1.mpileup.parsed
- |			|				|        |_ aln1.sam
- |			|				|        |_ aln1.sorted.bam
- |			|				|        |_ BC30_ref_Corynebacterium_tuberculostearicum_consensus.fasta
- |			|				|        |_ ConsensusPlot.html
- |			|				|        |_ list_Corynebacterium_tuberculostearicum
- |			|				|        |_ new1.bam
- |			|				|        |_ new1.fasta
- |			|				|        |_ R7g.Rmd
- |			|				|        |_ REF1.fasta
- |			|				|        |_ REF1.fasta.fai
+ |			|				|_ Corynebacterium_tubercuostearicum_consensus/  (one folder per taxonomic level with alignment files)      
+ |			|				|        |_ aln1.bam		(only if -V flag is used)
+ |			|				|        |_ aln1.mpileup	(only if -V flag is used)
+ |			|				|        |_ aln1.mpileup.parsed	(only if -V flag is used)
+ |			|				|        |_ aln1.sam			(only if -V flag is used)
+ |			|				|        |_ aln1.sorted.bam		(only if -V flag is used)
+ |			|				|        |_ BC30_ref_Corynebacterium_tubercuostearicum_consensus.fasta 
+ |			|				|        |_ ConsensusPlot.html		
+ |			|				|        |_ list_Corynebacterium_tuberculostearicum 
+ |			|				|        |_ new1.bam	(only if -V flag is used)
+ |			|				|        |_ new1.fasta	(only if -V flag is used)
+ |			|				|        |_ R7g.Rmd		(only if -V flag is used)
+ |			|				|        |_ REF1.fasta				
+ |			|				|        |_ REF1.fasta.fai			
  |			|			    |_ BC30_consensus_sequences.fasta   (this file lists all consensus sequences that could be derived from the Barcoded sample)
  |			|_ 03_BLAST_analysis/				(BLASTN analysis of the consensus sequences against the reference database)     
  |			|			    |_ blast_alignment.txt
@@ -287,12 +286,12 @@ myOutput/
  |			|			    |       |_ mafft.fasta-gb.mldist		(Likelihood distances)    
  |			|			    |       |_ mafft.fasta-gb.treefile		(Maximum-likelihood tree)    
  |			|			    |       |_ README_file_info.txt
- |			|			    |_ AllBlastREFs.fasta
- |			|			    |_ AllBlastREFsUniq.fasta
+ |			|			    |_ AllBlastREFs.fasta		(only if -V flag is used)
+ |			|			    |_ AllBlastREFsUniq.fasta	(only if -V flag is used)
  |			|			    |_ CONSREF1.fasta
  |			|			    |_ CONSREF1.header
- |			|			    |_ CONSREF1_simple.fasta
- |			|			    |_ OUTREFs.fasta
+ |			|			    |_ CONSREF1_simple.fasta	(only if -V flag is used)
+ |			|			    |_ OUTREFs.fasta			(only if -V flag is used)
  |			|_ 05_report/
  |			|		|_ BC30.report				(text file report)			
  |			|		|_ BC30_report.pdf			(PDF file report)
@@ -301,18 +300,6 @@ myOutput/
  |			|_ log.txt							(log for the specific barcode; here BC30)
  |_ 3_PDF_reports/								(copy of PDF reports from all barcode folders)
 			|_ BC30_report.pdf
-
-
-Using the -V option, keeps all the files above, while omitting the -V option,     
-```
-source activate LORCAN-env
-FastqDir=/home/alban/test_software/LORCAN_install_test/LORCAN/1.8/example_files/input_test/
-cwd=/home/alban/test_software/LORCAN_install_test/LORCAN #should be the complete path here
-LORCAN -i $FastqDir -o $cwd/myOutputNoV -L log_main.txt -I $cwd/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d My16SDB 
-```
-no verbose mode, produces this structure instead:    
-
-XXXXXXXXXXXXXXXXXXXXXXXXX     
 
 
 
@@ -327,10 +314,6 @@ FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/
 cwd=/Analyses/Results   
 perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d MyDataBase`
 ```     
-This command will produce an output structure as follows:     
-The results will be found in $cwd/myOutput/...        
-XXXXXXXXXX             
-
 
 # PARAMETERS        
 
