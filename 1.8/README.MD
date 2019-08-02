@@ -15,16 +15,16 @@ cwd=/Analyses/Results
 perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d MyDataBase`
 ```     
 
-## ARGUMENTS        
-**-h** help information            
-**-V** verbose mode (for debugging). When selected, more detailed output is provided. When off, several intermediary files are removed.          
-**-v** version number      
-**-d** choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer)       
-**-D** choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).       
-**-E** email address: e.g.  your.name\@your.institute.com. Under normal mode, an email is sent to the provided email address when the job is complete. When verbose mode is on, no email is sent.   
-**-i** directory containing the basecalled FASTQ files (full path) not yet demultiplexed.          
-**-I** the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by      
-	the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report. 
+## ARGUMENTS  
+| :--------------: |:-----------| 
+|**-h** | help information
+|**-V** |verbose mode (for debugging). When selected, more detailed output is provided. When off, several intermediary files are removed.|          
+|**-v**| version number |     
+|**-d**| choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer) |      
+|**-D**| choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).|       
+|**-E**| email address: e.g.  your.name\@your.institute.com. Under normal mode, an email is sent to the provided email address when the job is complete. When verbose mode is on, no email is sent.|   
+|**-i**| directory containing the basecalled FASTQ files (full path) not yet demultiplexed.|          
+|**-I**| the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report. 
 	This is an example of file with 3 barcoded samples:     
 	`
 	RunName:20190220_x4_Amplikon      
@@ -33,14 +33,14 @@ perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213
 	BC17:2019-067      	
 	BC18:2019-068      	
 	BC19:2019-069      
-	`
-**-L** log file name e.g. log.txt (not the path)        
-**-m** minimum number of reads per barcode to further proceed        
-**-M** maximum number of reads to retain per sample (e.g. 3000)      
-**-n** nber of threads e.g. 20       
-**-o** full path to the output directory e.g. /path_to/output. The "output" directory folder is automatically created and appended to the indicated path.            
-**-P** minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group 		
-will not be calculated.		
+	`|
+|**-L**| log file name e.g. log.txt (not the path) |       
+|**-m**| minimum number of reads per barcode to further proceed |       
+|**-M**| maximum number of reads to retain per sample (e.g. 3000)|      
+|**-n**| nber of threads e.g. 20|       
+|**-o**| full path to the output directory e.g. /path_to/output. The "output" directory folder is automatically created and appended to the indicated path.|            
+|**-P**| minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group 		
+will not be calculated.|		
 
 ## INSTALLATION       
 ***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
@@ -185,31 +185,21 @@ with:
 -Field_3: the full fasta header from the corresponding reference fasta file.       
 
 e.g.        
-URS00000B1AF5,Abiotrophia_defectiva,Abiotrophia_defectiva~v~TT~URS00000B1AF5=Bacteria-Firmicutes-Bacilli-Lactobacillales-Aerococcaceae-Abiotrophia-Abiotrophia_defectiva       
-URS000007145D,Achromobacter_xylosoxidans,Achromobacter_xylosoxidans~v~TT~URS000007145D=Bacteria-Proteobacteria-Betaproteobacteria-Burkholderiales-Alcaligenaceae-Achromobacter-Achromobacter_xylosoxidans       
-...       
+URS00000B1AF5,Abiotrophia_defectiva,Abiotrophia_defectiva\~v\~TT\~URS00000B1AF5=Bacteria-Firmicutes-Bacilli-Lactobacillales-Aerococcaceae-Abiotrophia-Abiotrophia_defectiva       
 
-Halomonas_boliviensis\~v\~N\~URS0000270AF0       
-Bacillus_cereus\~v\~N\~URS00008F958C       
-Salmonella_enterica_subsp._enterica\~v\~N\~URS0000666001       
-Tonsilliphilus_suis\~v\~N\~URS000088A712       
-Poseidonocella_sedimentorum\~v\~TT\~URS00004498E4       
-Bacillus_amyloliquefaciens\~v\~N\~URS0000469009       
-Brevundimonas_diminuta\~v\~N\~URS00001C3DB3       
-Bacillus_licheniformis\~v\~N\~URS0000B1B36B       
-...
 
+Here is a small command-line script to extract and format the necessary information:     
 ```
 grep ">"  16S_stringent_custom.fasta | sed 's/>//' | awk -F\~ '{print $4","$1","$1"~"$2"~"$3"~"$4}' > My16S_taxdict.csv
 ```
 
-*Field_2* can be further edited in case you want to keep the subspecies information or not.          
+*Field_2* of taxdict.csv can be further edited in case you want to keep the subspecies information or not.          
 For your information (printing the Field_2 with *subsp* information):    
 ```
 cat My16S_taxdict.csv | cut -f2 --delim=","  | grep "subsp" | sort | uniq
 ```
 
-Now indicate the path to the fasta file in the lib/config.pm file:           
+Now indicate the path to the taxdict.csv file in the lib/config.pm file:           
 
 ```
 our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/My16S_taxdict.csv";
@@ -217,10 +207,10 @@ our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/Bi
 
 ## TEST LORCAN 
 The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded amplicon samples.
-- average read length= 635.8 bp, range 14-1456 bp.       
-- total number of bases=5,086,542    
+-  read length of 635.8 bp on average, ranging from 14-1,456 bp.       
+- 5,086,542 bases in total   
 
-Uncompress the file before using:
+Uncompress the file:
 ```
 gunzip fastq_0.fastq.gz   
 ```   
