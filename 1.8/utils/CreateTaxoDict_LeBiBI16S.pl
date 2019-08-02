@@ -1,10 +1,10 @@
-#!/software/KM/perl5/perlbrew/perls/perl-5.28.0/bin/perl
+#!/bin/perl
 #===============================================================================
 #
 #         FILE: CreateTaxoDict.pl
 #
 #
-#  DESCRIPTION: create a csv for a fasta ref file (input needed for LORCAN)
+#  DESCRIPTION: Create a taxdict.csv file from a FASTA reference file (input needed for LORCAN)
 #
 #      OPTIONS: ---
 # REQUIREMENTS: ---
@@ -34,8 +34,7 @@ getopts('i:o:vVh', \%args);
 my ($Verbose,$REF_FP,$OUTFILE);
 
 if ($args{h}) {
-        print "\n\n start_partI.pl by A.Ramette version $version\n\n";
-        print "What it does: parse the referbce fasta headers to format the csv file as required for LORCAN \n";
+        print "\n\nWhat it does: parse the referbce fasta headers to format the csv file as required for LORCAN \n";
         print "Arguments:...\n";
         print "\t-i Full path to the reference fasta \n";
         print "\t-o Full path to the output csv file  \n";
