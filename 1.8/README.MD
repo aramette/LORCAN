@@ -103,12 +103,12 @@ source deactivate LORCAN-env
 
 **Arguments:**      
 **-h** help information            
-**-V** verbose mode (for debugging)      
+**-V** verbose mode (for debugging). When selected, more detailed output is provided. When off, several intermediary files are removed.          
 **-v** version number      
 **-d** choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer)       
 **-D** choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).       
-**-E** email address: e.g.  your.name\@your.institute.com       
-**-i** directory containing the basecalled FASTQ files (full path)      
+**-E** email address: e.g.  your.name\@your.institute.com. Under normal mode, an email is sent to the provided email address when the job is complete. When verbose mode is on, no email is sent.   
+**-i** directory containing the basecalled FASTQ files (full path) not yet demultiplexed.          
 **-I** the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by      
 	the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report. 
 	This is an example of file with 3 barcoded samples:     
@@ -124,68 +124,20 @@ source deactivate LORCAN-env
 **-m** minimum number of reads per barcode to further proceed        
 **-M** maximum number of reads to retain per sample (e.g. 3000)      
 **-n** nber of threads e.g. 20       
-**-o** full path to the output directory e.g. /path_to/output        
-**-P** minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads)        
-
-# Usage example   
-`perl lib/main.pl -V -i \$testDataDir -n 20 -m 10 -o $cwd/output_test_main_16S_delta5 -I $cwd/sample_id.txt -L log_main.txt -P 30 -D 5 -d BiBi16S`      
-	
-**Input dir**     		
-The path to the directory containing the fastq files (not demultiplexed).          
-		
-**Output dir path**   
-Path to the output directory. The "output" directory is automatically created and appended to the path.    
-		
-**Number of cpus**   
-The max value is the value available on the current system.		
-		
-**Minimum number of reads per barcoded sample (threshold)**   
-The number of reads per taxonomic group under which the consensus per taxonomic group 		
+**-o** full path to the output directory e.g. /path_to/output. The "output" directory folder is automatically created and appended to the indicated path.            
+**-P** minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group 		
 will not be calculated.		
-		
-**Databases**   
-A database flat file (fasta) needs to be obtained and formatted to be compatible with BLASTN, as follows.     
+        
 
-`module load Blast/blast/2.6.0` #system specific     
-
-`makeblastdb -in  /path2dir/SSU-rDNA-mk37/16S_TS-stringent_dedup.fasta -dbtype nucl`     
-
-The database path should be indicated in the lib/config.pm file.     
-
-A corresponding .taxdict.csv file must be prepared using the same database file (fasta). See below.      
-
-Other databases can be added by modifying the config.pm file appropriately.    
-
-**taxdict.csv file**   
-For each entry of the database file, the taxdict.csv file contains the following fields:     
-[Accession number],[taxonomic classication],[full fasta header information]      
-e.g. URS00000B1AF5,Abiotrophia_defectiva,Abiotrophia_defectiva~v~TT~URS00000B1AF5=Bacteria-Fir      
-			
-A utility script can be found in lib/CreateTaxoDict_LeBiBI16S.pl to prepare such file using the LeBiBiref database.     
-		
-      
-		
-**Email address**   
-Under normal mode, an email is sent to the provided email address when the job is complete.    
-When verbose mode is on, no email is sent.   
-
-**Verbose mode**
-When selected, more detailed output is provided. When off, several intermediary files are removed.    
-		
-		
-# CONFIGURATION   
-**config.pm**   
-This file contains the absolute paths to the dependencies (executable, databases).    
-Each field may need to be changed depending on your own configuration and system.    
-
-# Example
-
-`FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/`   
-
-`cwd=/Analyses/Pipelines/dev/LORCAN/v1.8`   
-
-`/pathto/lorcan.pl -V -i $FastqDir -o $cwd/20190213_x3_Amplikon_2 -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`
-     
+## Example   
+```
+FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/
+cwd=/Analyses/Results   
+perl /pathto/lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`
+```     
+This command will produce an output structure as follows:     
+The results will be found in $cwd/myOutput/...        
+XXXXXXXXXX             
 
 # How to cite?       		
 xxxx.    
