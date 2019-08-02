@@ -9,7 +9,7 @@ for each barcoded sample, based on read alignment to best matches from a customi
 All analysis steps are automated and a final report (PDF) is produced for each barcoded sample.      
 
 ## INSTALLATION       
-**Disclaimer**: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
+***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
 and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
 The recommended way is to use a *conda* (*anaconda*, *miniconda*) environment to install the software and its dependencies.     
