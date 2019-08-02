@@ -17,7 +17,7 @@ The recommended way is to use a *conda* (*anaconda*, *miniconda*) environment to
 Here is a step-by-step installation guide using a *conda* environment:     
 1.	If not yet done, install *conda*:     
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html     
-To test your installation, in your terminal window or Anaconda Prompt, run `conda list`     
+To test your installation, in your terminal, type `conda list`     
 If you read “bash: conda: command not found...”, then the conda installation was not successful and LORCAN cannot be installed with conda.     
 Otherwise, you should see some text in the console, starting with "#packages in environment at...".       
 
