@@ -31,8 +31,7 @@ perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213
 |**-M**| maximum number of reads to retain per sample (e.g. 3000)|      
 |**-n**| nber of threads e.g. 20|       
 |**-o**| full path to the output directory e.g. /path_to/output. The "output" directory folder is automatically created and appended to the indicated path.|            
-|**-P**| minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group 		
-will not be calculated.|		
+|**-P**| minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group will not be calculated.|		
 
 
 This is an example of *sample_id.txt* file with 3 barcoded samples:     
@@ -46,8 +45,7 @@ BC19:2019-069
 ```
 
 ## INSTALLATION       
-***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
-and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
+***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture), and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
 The recommended way is to use a *conda* (*anaconda*, *miniconda*) environment to install the software and its dependencies.     
 
@@ -179,9 +177,9 @@ Note than additional databases can be also listed in the config.pm file (separat
 
 
 Finally, prepare the **TaxDictFile** (Taxonomy Dictionary file) as follows:      
-The TaxDictFile is a comma-separated-values file with 3 fields.
-Field_1,Field_2,Field_3    
-       ^       ^     
+The TaxDictFile is a comma-separated-values file with 3 fields.      
+Field_1,Field_2,Field_3      
+       ^       ^          
 with: 		 
 -Field_1: accession number (or unique id) of the seqeuence       
 -Field_2: taxonomic_grouping with no space (e.g. Pseudomonas_aeruginosa). This information is used to regroup reference sequences by level during the LORCAN analysis.      
@@ -191,13 +189,13 @@ e.g.
 URS00000B1AF5,Abiotrophia_defectiva,Abiotrophia_defectiva\~v\~TT\~URS00000B1AF5=Bacteria-Firmicutes-Bacilli-Lactobacillales-Aerococcaceae-Abiotrophia-Abiotrophia_defectiva       
 
 
-Here is a small command-line script to extract and format the necessary information:     
+Here is a small command-line script to extract and format the necessary information into a taxdict.csv file:       
 ```
 grep ">"  16S_stringent_custom.fasta | sed 's/>//' | awk -F\~ '{print $4","$1","$1"~"$2"~"$3"~"$4}' > My16S_taxdict.csv
 ```
 
-*Field_2* of taxdict.csv can be further edited in case you want to keep the subspecies information or not.          
-For your information (printing the Field_2 with *subsp* information):    
+*Field_2* of taxdict.csv can be further edited to keep the subspecies information or not.          
+To print Field_2 with *subsp* information:    
 ```
 cat My16S_taxdict.csv | cut -f2 --delim=","  | grep "subsp" | sort | uniq
 ```
@@ -249,7 +247,7 @@ LORCAN -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/sample_id.txt -n
 - Taxo = Taxonomic assignment based on read mapping, BLAST similarity analysis, and phylogenetic tree positioning
 
 
-After few minutes, the /LORCAN/myOutput folder contains the following structure:    
+After few minutes, the /LORCAN/myOutput folder should contain the following structure:    
 ```
  myOutput/
  |_ 0_logs/
