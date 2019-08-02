@@ -62,14 +62,14 @@ perl lorcan.pl -h
 ```
 
 6. Optional, but recommended:      
-To be able to run the command everywhere on your system with the current username, edit your `~./bashrc` file by running the following command that adds an alias to the bashrc file:
+To be able to run the command everywhere on your system with the current username, edit your `~/.bashrc` file by running the following command that adds an alias to the .bashrc file:           
 ```
 printf "alias LORCAN=\'perl /path_to_your_directory/LORCAN/1.8/lib/lorcan.pl\'">> ~/.bashrc
 
 ```
-Then run:
+Then run:    
 ```
-source ~./bashrc
+source ~/.bashrc
 ```
 to take the modification into account (next time your start a session, the changes will already be written in your .bashrc file).      
 now you can call the program directly using the alias *LORCAN* on the command line:         
@@ -88,8 +88,6 @@ LORCAN -h
 5.	Test *LORCAN*            
 ```
 ```
-
-What to modify before starting:       
 
 
 
