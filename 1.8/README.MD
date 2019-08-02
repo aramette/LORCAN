@@ -25,16 +25,7 @@ perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213
 |**-D**| choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).|       
 |**-E**| email address: e.g.  your.name\@your.institute.com. Under normal mode, an email is sent to the provided email address when the job is complete. When verbose mode is on, no email is sent.|   
 |**-i**| directory containing the basecalled FASTQ files (full path) not yet demultiplexed.|          
-|**-I**| the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report. 
-	This is an example of file with 3 barcoded samples:     
-	`
-	RunName:20190220_x4_Amplikon      
-	RunDate:21.02.2019      	
-	#      
-	BC17:2019-067      	
-	BC18:2019-068      	
-	BC19:2019-069      
-	`|
+|**-I**| the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report.|
 |**-L**| log file name e.g. log.txt (not the path) |       
 |**-m**| minimum number of reads per barcode to further proceed |       
 |**-M**| maximum number of reads to retain per sample (e.g. 3000)|      
@@ -42,6 +33,17 @@ perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213
 |**-o**| full path to the output directory e.g. /path_to/output. The "output" directory folder is automatically created and appended to the indicated path.|            
 |**-P**| minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group 		
 will not be calculated.|		
+
+
+This is an example of *sample_id.txt* file with 3 barcoded samples:     
+```
+RunName:20190220_x4_Amplikon      
+RunDate:21.02.2019      	
+#      
+BC17:2019-067      	
+BC18:2019-068      	
+BC19:2019-069      
+```
 
 ## INSTALLATION       
 ***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
