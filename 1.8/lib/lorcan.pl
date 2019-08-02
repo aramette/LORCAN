@@ -215,7 +215,6 @@ unless (-e "$Cdir/0_logs/$LOG") {
 			PORECHOP 	 => $PORECHOP,
 			minimap2 	 => $minimap2,
 			samtools 	 => $samtools,
-			cutadapt 	 => $cutadapt,
 			BLASTN 		 => $BLASTN,
 			Rscript 	 => $Rscript,	
 			REF_FP 		 => $RefDB{$DBchoice}, # %RefDB defined in config.pm file
@@ -337,11 +336,8 @@ foreach(@BCDIR){ # checking production of files again
 print MAINLOG"\n=> Running Steps for each barcoded sample in parallel\n";
 if ($args{V}) {	say "=> running Parallel steps for each barcode...";}
 
-#-------------------------#only for debugging and development 
+#-------------------------#only for debugging and development, one can indicate specific Barcode number here 
 	#@BCDIR=("BC28","BC25");	#OK until PDF
-	#@BCDIR=("BC16","BC17");	# do not produce PDF, stopping at list.mapped (empty file created)
-	#@BCDIR=("BC28","BC16");	
-	#@BCDIR=("BC28");	
 #-------------------------
 	my $NBc=scalar(@BCDIR);
 	my $pm = new Parallel::ForkManager($NberThreads);
