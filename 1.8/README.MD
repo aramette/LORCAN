@@ -49,8 +49,8 @@ conda clean --tarballs; conda clean --package
 ```
 
 
-4.	Clone the binaries from GitHub to your own machine:          
-(move first to the directory where you want LORCAN to reside)      
+4.	Clone the *LORCAN* binaries from GitHub to your own machine:          
+(move first to the directory where you want to install LORCAN)      
 ```
 git clone https://github.com/aramette/LORCAN.git    
 ```
@@ -62,11 +62,8 @@ perl lorcan.pl -h
 ```
 
 ## CONFIGURATIONS
-### 1) overall configuration (to be done once per system)
-   
-Before starting an analysis, the following files must be modified based on your installation:      
 
-give examples_files of file
+
 
 
 
@@ -78,20 +75,7 @@ give examples_files of file
 
 What to modify before starting:       
 
-Taxdict file        
-Db (custom if needed, blast)       
 
-Config.pm       
-(create s script to find the dependencies to be put in the config.file “which blast”)       
-our $PERL			="/software/KM/perl5/perlbrew/perls/perl-5.28.0/bin/perl";       
-our $PORECHOP		="/software_conda/3/bin/porechop";       
-our $samtools		="module load UHTS/samtools/1.4;samtools";       		
-our $BLASTN			="module load Blast/blast/2.6.0;blastn";       
-our $Rscript 		="/software/KM/R-3.5.0_KM_WGS/bin/Rscript";       
-our $mafft 			="/software_conda/3/bin/mafft";       
-our $Gblocks		="/software_conda/3/bin/Gblocks";       
-our $iqtree			="/software_conda/3/bin/iqtree";       
-also path to db and blast       
 
 To exit from the LORCAN-env, type: 
 ```
@@ -133,7 +117,7 @@ will not be calculated.
 ```
 FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/
 cwd=/Analyses/Results   
-perl /pathto/lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`
+perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`
 ```     
 This command will produce an output structure as follows:     
 The results will be found in $cwd/myOutput/...        
