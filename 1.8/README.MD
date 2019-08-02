@@ -8,6 +8,40 @@ From basecalled nanopore reads in FASTQ format, the pipeline produces consensus 
 for each barcoded sample, based on read alignment to best matches from a customized reference database.  
 All analysis steps are automated and a final report (PDF) is produced for each barcoded sample.      
 
+## USAGE
+```
+FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/
+cwd=/Analyses/Results   
+perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d MyDataBase`
+```     
+
+## ARGUMENTS        
+**-h** help information            
+**-V** verbose mode (for debugging). When selected, more detailed output is provided. When off, several intermediary files are removed.          
+**-v** version number      
+**-d** choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer)       
+**-D** choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).       
+**-E** email address: e.g.  your.name\@your.institute.com. Under normal mode, an email is sent to the provided email address when the job is complete. When verbose mode is on, no email is sent.   
+**-i** directory containing the basecalled FASTQ files (full path) not yet demultiplexed.          
+**-I** the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by      
+	the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report. 
+	This is an example of file with 3 barcoded samples:     
+	`
+	RunName:20190220_x4_Amplikon      
+	RunDate:21.02.2019      	
+	#      
+	BC17:2019-067      	
+	BC18:2019-068      	
+	BC19:2019-069      
+	`
+**-L** log file name e.g. log.txt (not the path)        
+**-m** minimum number of reads per barcode to further proceed        
+**-M** maximum number of reads to retain per sample (e.g. 3000)      
+**-n** nber of threads e.g. 20       
+**-o** full path to the output directory e.g. /path_to/output. The "output" directory folder is automatically created and appended to the indicated path.            
+**-P** minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group 		
+will not be calculated.		
+
 ## INSTALLATION       
 ***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture),    
 and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
@@ -78,21 +112,20 @@ LORCAN -h
 ```
 
 ## CONFIGURATIONS
-
-**1) General pipeline configuration** 
+**1) General pipeline configuration**     
 This step needs to be done only once when installing LORCAN.       
 Edit the lib/config.pm file in the LORCAN/lib folder with your favorite text editor.      
 This file contains the absolute paths to the dependencies (executable, databases).    
-Each field starting with "our" may need to be changed depending on your own configuration and system. Make sure you exactly write the paths as indicated in the config.pm template, including the extra information at the end of the line.    
-e.g.       
-our $LIBDIRECTORY	="/path_to/LORCAN/1.8/lib"; #<------------------    
+Each field starting with "our" may need to be changed depending on your own configurTtion and system. Make sure you exactly write the paths as indicated in the config.pm template, including the extra information at the end of the line.       
+e.g.        
+our $LIBDIRECTORY	="/path_to/LORCAN/1.8/lib"; 
 
 If not yet done, activate the environment:         
 ```
 source activate LORCAN-env 
 ```
-then complete the path description for each executable. 
-To check the paths needed, type in the console:       
+Then edit the path description for each executable. 
+To check for the exact paths, type in the console:       
 ```
 which perl
 which seqkit
@@ -106,12 +139,12 @@ which mafft
 which Gblocks
 which iqtree
 ```
-then report the paths to the config.pm file. An example file is provided in *lib/*.      
+Then report the paths to the *lib/config.pm* file. An example file is provided in *lib/*.      
 
 **2) Assay-specific configuration**    
-To be configured for each specific amplicon only once.
-Here we will use the LeBiBi database as an example
-Example database files are provided as example in the folder *example_files/*      
+For each assay (i.e. amplicon), the following configuration needs to be done once.     
+Here we will use the LeBiBi database as an example for 16S rRNA gene sequences.        
+Example files are provided in the folder *example_files/*      
 
 Copy the Custom16S.tar.gz file to the LORCAN/DB/16S/ folder, and uncompress the tar.gz file:   
 ```
@@ -156,20 +189,21 @@ URS00000B1AF5,Abiotrophia_defectiva,Abiotrophia_defectiva~v~TT~URS00000B1AF5=Bac
 URS000007145D,Achromobacter_xylosoxidans,Achromobacter_xylosoxidans~v~TT~URS000007145D=Bacteria-Proteobacteria-Betaproteobacteria-Burkholderiales-Alcaligenaceae-Achromobacter-Achromobacter_xylosoxidans       
 ...       
 
-Halomonas_boliviensis~v~N~URS0000270AF0       
-Bacillus_cereus~v~N~URS00008F958C       
-Salmonella_enterica_subsp._enterica~v~N~URS0000666001       
-Tonsilliphilus_suis~v~N~URS000088A712       
-Poseidonocella_sedimentorum~v~TT~URS00004498E4       
-Bacillus_amyloliquefaciens~v~N~URS0000469009       
-Brevundimonas_diminuta~v~N~URS00001C3DB3       
-Bacillus_licheniformis~v~N~URS0000B1B36B       
+Halomonas_boliviensis\~v\~N\~URS0000270AF0       
+Bacillus_cereus\~v\~N\~URS00008F958C       
+Salmonella_enterica_subsp._enterica\~v\~N\~URS0000666001       
+Tonsilliphilus_suis\~v\~N\~URS000088A712       
+Poseidonocella_sedimentorum\~v\~TT\~URS00004498E4       
+Bacillus_amyloliquefaciens\~v\~N\~URS0000469009       
+Brevundimonas_diminuta\~v\~N\~URS00001C3DB3       
+Bacillus_licheniformis\~v\~N\~URS0000B1B36B       
+...
 
 ```
 grep ">"  16S_stringent_custom.fasta | sed 's/>//' | awk -F\~ '{print $4","$1","$1"~"$2"~"$3"~"$4}' > My16S_taxdict.csv
 ```
 
-Field_2 can be further checked and edited in case you want to keep the subspecies information or not.          
+*Field_2* can be further edited in case you want to keep the subspecies information or not.          
 For your information (printing the Field_2 with *subsp* information):    
 ```
 cat My16S_taxdict.csv | cut -f2 --delim=","  | grep "subsp" | sort | uniq
@@ -178,11 +212,10 @@ cat My16S_taxdict.csv | cut -f2 --delim=","  | grep "subsp" | sort | uniq
 Now indicate the path to the fasta file in the lib/config.pm file:           
 
 ```
-our $TaxDictFile	="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/My16S_taxdict.csv";
+our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/My16S_taxdict.csv";
 ```
 
 ## TEST LORCAN 
-
 The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded amplicon samples.
 - average read length= 635.8 bp, range 14-1456 bp.       
 - total number of bases=5,086,542    
@@ -216,15 +249,16 @@ LORCAN -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/sample_id.txt -n
 | BC29:mysample12 | 272	| L=448 N=0 G=4 Taxo=Corynebacterium_tuberculostearicum
 | BC30:mysample13 | 392	| L=448 N=0 G=4 Taxo=Corynebacterium_tuberculostearicum
 
-- Ireads=Total number of reads in the input fasta file after demultiplexing
-- L=length (bp) of the consensus sequence produced by LORCAN 
-- N=number of unknown bases, i.e. not  A/T/G/C in the consensus sequence ; 
-- G=number of bases present in the reference sequence, but absent in the consensus sequence (deletions)
-- Taxo= Taxonomic assignment based on read mapping, BLAST similarity analysis, and phylogenetic tree positioning
+- Input read = Total number of reads in the input fasta file after demultiplexing
+- L = length (bp) of the consensus sequence produced by LORCAN 
+- N = number of unknown bases, i.e. not  A/T/G/C in the consensus sequence ; 
+- G = number of bases present in the reference sequence, but absent in the consensus sequence (deletions)
+- Taxo = Taxonomic assignment based on read mapping, BLAST similarity analysis, and phylogenetic tree positioning
 
 
-After few minutes, the /LORCAN/myOutput folder contains the following structure:
-myOutput/
+After few minutes, the /LORCAN/myOutput folder contains the following structure:    
+```
+ myOutput/
  |_ 0_logs/
  | 	  |_ log_main.txt						 (overall run log)       
  |	  |_ 1_initial_fastq_stats.txt 			 (fastq stats before demultiplexing)       
@@ -300,50 +334,14 @@ myOutput/
  |			|_ log.txt							(log for the specific barcode; here BC30)
  |_ 3_PDF_reports/								(copy of PDF reports from all barcode folders)
 			|_ BC30_report.pdf
-
+```
 
 
 To exit from the LORCAN-env, type: 
 ```
 source deactivate LORCAN-env        
 ```
-
-## USAGE
-```
-FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/
-cwd=/Analyses/Results   
-perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d MyDataBase`
-```     
-
-# PARAMETERS        
-
-**Arguments:**      
-**-h** help information            
-**-V** verbose mode (for debugging). When selected, more detailed output is provided. When off, several intermediary files are removed.          
-**-v** version number      
-**-d** choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer)       
-**-D** choice of delta value around the modal sequence length (e.g. 5 means modal sequence length +-5 bp).       
-**-E** email address: e.g.  your.name\@your.institute.com. Under normal mode, an email is sent to the provided email address when the job is complete. When verbose mode is on, no email is sent.   
-**-i** directory containing the basecalled FASTQ files (full path) not yet demultiplexed.          
-**-I** the full path to the sample id file. The sample id file is made of the first two lines with RunName and RunDate, followed by      
-	the sample names associated with each barcode, separated by colon (:). The whole BC line is copied to the final report. 
-	This is an example of file with 3 barcoded samples:     
-	`
-	RunName:20190220_x4_Amplikon      
-	RunDate:21.02.2019      	
-	#      
-	BC17:2019-067      	
-	BC18:2019-068      	
-	BC19:2019-069      
-	`
-**-L** log file name e.g. log.txt (not the path)        
-**-m** minimum number of reads per barcode to further proceed        
-**-M** maximum number of reads to retain per sample (e.g. 3000)      
-**-n** nber of threads e.g. 20       
-**-o** full path to the output directory e.g. /path_to/output. The "output" directory folder is automatically created and appended to the indicated path.            
-**-P** minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group 		
-will not be calculated.		
-        
+       
 
 
 # How to cite?       		
