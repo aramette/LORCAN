@@ -79,14 +79,113 @@ LORCAN -h
 
 ## CONFIGURATIONS
 
+CONFIGURATIONS
+**1) General pipeline configuration** 
+This step needs to be done only once when installing LORCAN.       
+Edit the lib/config.pm file in the LORCAN/lib folder with your favorite text editor.      
+This file contains the absolute paths to the dependencies (executable, databases).    
+Each field starting with "our" may need to be changed depending on your own configuration and system. Make sure you exactly write the paths as indicated in the config.pm template, including the extra information at the end of the line.    
+e.g.       
+our $LIBDIRECTORY	="/path_to/LORCAN/1.8/lib"; #<------------------    
 
+If not yet done, activate the environment:         
+```
+source activate LORCAN-env 
+```
+then complete the path description for each executable. 
+To check the paths needed, type in the console:       
+```
+which perl
+which seqkit
+which porechop
+which minimap2
+which samtools
+which cutadapt
+which blastn 
+which Rscript
+which mafft 	
+which Gblocks
+which iqtree
+```
+then report the paths to the config.pm file. An example file is provided in *lib/*.      
 
+**2) Assay-specific configuration**    
+To be configured for each specific amplicon only once.
+Here we will use the LeBiBi database as an example
+Example database files are provided as example in the folder *example_files/*      
 
+Copy the Custom16S.tar.gz file to the LORCAN/DB/16S/ folder, and uncompress the tar.gz file:   
+```
+mkdir -p LORCAN/DB/16S/
+cd LORCAN/DB/16S/
+tar xvzf Custom16S.tar.gz 
+```
+In the subfolder, you should see two example files:   
+- 16S_stringent_custom.fasta  
+- 16S_stringent_custom_simplified.names   
+
+**Prepare the corresponding BLAST database**      
+Please refer to the document "Preparation of custom 16S database" for further indication about how to prepare the files.    
+https://github.com/aramette/LORCAN/blob/master/1.8/Create_custom_db/custom_16S.md
+```
+makeblastdb -in  16S_stringent_custom.fasta -dbtype nucl  
+  
+```
+
+Now indicate the path to the fasta file in the lib/config.pm file:    
 
 ```
+%RefDB=(
+	My16SDB => "/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/16S_stringent_custom.fasta", #<-------------
+	MyOtherGeneDB => "/storage/databases/adenovirus/2018_10_10/Human_Adenovirus_genomes_20181010.fasta",
+);
 ```
+Note than additional databases can be also listed in the config.pm file (separated by a comma; see above).          
+
+
+Finally, prepare the **TaxDictFile** (Taxonomy Dictionary file) as follows:      
+The TaxDictFile is a comma-separated-values file with 3 fields.
+Field_1,Field_2,Field_3    
+       ^       ^     
+with: 		 
+-Field_1: accession number (or unique id) of the seqeuence       
+-Field_2: taxonomic_grouping with no space (e.g. Pseudomonas_aeruginosa). This information is used to regroup reference sequences by level during the LORCAN analysis.      
+-Field_3: the full fasta header from the corresponding reference fasta file.       
+
+e.g.        
+URS00000B1AF5,Abiotrophia_defectiva,Abiotrophia_defectiva~v~TT~URS00000B1AF5=Bacteria-Firmicutes-Bacilli-Lactobacillales-Aerococcaceae-Abiotrophia-Abiotrophia_defectiva       
+URS000007145D,Achromobacter_xylosoxidans,Achromobacter_xylosoxidans~v~TT~URS000007145D=Bacteria-Proteobacteria-Betaproteobacteria-Burkholderiales-Alcaligenaceae-Achromobacter-Achromobacter_xylosoxidans       
+...       
+
+Halomonas_boliviensis~v~N~URS0000270AF0       
+Bacillus_cereus~v~N~URS00008F958C       
+Salmonella_enterica_subsp._enterica~v~N~URS0000666001       
+Tonsilliphilus_suis~v~N~URS000088A712       
+Poseidonocella_sedimentorum~v~TT~URS00004498E4       
+Bacillus_amyloliquefaciens~v~N~URS0000469009       
+Brevundimonas_diminuta~v~N~URS00001C3DB3       
+Bacillus_licheniformis~v~N~URS0000B1B36B       
+
+```
+grep ">"  16S_stringent_custom.fasta | sed 's/>//' | awk -F\~ '{print $4","$1","$1"~"$2"~"$3"~"$4}' > My16S_taxdict.csv
+```
+
+Field_2 can be further checked and edited in case you want to keep the subspecies information or not.          
+For your information (printing the Field_2 with *subsp* information):    
+```
+cat My16S_taxdict.csv | cut -f2 --delim=","  | grep "subsp" | sort | uniq
+```
+
+Now indicate the path to the fasta file in the lib/config.pm file:           
+
+```
+our $TaxDictFile	="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/My16S_taxdict.csv";
+```
+
+
 5.	Test *LORCAN*            
 ```
+TBD
 ```
 
 
