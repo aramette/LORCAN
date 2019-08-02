@@ -79,7 +79,6 @@ LORCAN -h
 
 ## CONFIGURATIONS
 
-CONFIGURATIONS
 **1) General pipeline configuration** 
 This step needs to be done only once when installing LORCAN.       
 Edit the lib/config.pm file in the LORCAN/lib folder with your favorite text editor.      
@@ -182,11 +181,138 @@ Now indicate the path to the fasta file in the lib/config.pm file:
 our $TaxDictFile	="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/My16S_taxdict.csv";
 ```
 
+## TEST LORCAN 
 
-5.	Test *LORCAN*            
+The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded amplicon samples.
+- average read length= 635.8 bp, range 14-1456 bp.       
+- total number of bases=5,086,542    
+
+Uncompress the file before using:
 ```
-TBD
+gunzip fastq_0.fastq.gz   
+```   
+
+Run LORCAN with the following parameters:      
 ```
+FastqDir=/home/alban/test_software/LORCAN_install_test/LORCAN/1.8/example_files/input_test/
+cwd=/home/alban/test_software/LORCAN_install_test/LORCAN #should be the complete path here
+LORCAN -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d My16SDB
+```
+
+
+| Sample ID       | Input reads | Consensus sequence |
+| :-------------- |:-----------:| :---------------------------------------------------------|
+| BC16:mysample1  | 148 | L=462 N=1 G=1 Taxo=Mycobacterium_chimaera
+| BC17:mysample2  |  54 | Not enough reads matching. No consensus was built for this sample.
+| BC18:mysample3  |  96 | Not enough reads matching. No consensus was built for this sample.
+| BC19:mysample4  | 239	| L=462 N=0 G=1 Taxo=Mycobacterium_intracellulare_subsp._intracellulare
+| BC22:mysample5  |	127	| No taxonomic group obtained in total >100 reads. No consensus was built for this sample.
+| BC23:mysample6  |	168	| No taxonomic group obtained in total >100 reads. No consensus was built for this sample.
+| BC24:mysample7  |	232	| L=462 N=1 G=1 Taxo=Mycobacterium_intracellulare_subsp._intracellulare	
+| BC25:mysample8  |	191	| L=462 N=0 G=1 Taxo=Mycobacterium_intracellulare_subsp._intracellulare	
+| BC26:mysample9  |	206	| No taxonomic group obtained in total >100 reads. No consensus was built for this sample.
+| BC27:mysample10 | 142	| No taxonomic group obtained in total >100 reads. No consensus was built for this sample.
+| BC28:mysample11 | 246	| L=483 N=0 G=0 Taxo=Streptococcus_thermophilus
+| BC29:mysample12 | 272	| L=448 N=0 G=4 Taxo=Corynebacterium_tuberculostearicum
+| BC30:mysample13 | 392	| L=448 N=0 G=4 Taxo=Corynebacterium_tuberculostearicum
+
+- Ireads=Total number of reads in the input fasta file after demultiplexing
+- L=length (bp) of the consensus sequence produced by LORCAN 
+- N=number of unknown bases, i.e. not  A/T/G/C in the consensus sequence ; 
+- G=number of bases present in the reference sequence, but absent in the consensus sequence (deletions)
+- Taxo= Taxonomic assignment based on read mapping, BLAST similarity analysis, and phylogenetic tree positioning
+
+
+After few minutes, the /LORCAN/myOutput folder contains the following structure:
+
+myOutput/
+ |_ 0_logs/
+ | 	  |_ log_main.txt						 (overall run log)       
+ |	  |_ 1_initial_fastq_stats.txt 			 (fastq stats before demultiplexing)       
+ |	  |_ 2_stats_fastq_postporechop.txt 	 (fastq stats after demultiplexing)       
+ |	  |_ 3_Barcodes_with_modal_sequences.txt (BC number with modal sequences)       
+ |_ 1_fasta/ 								 (for each barcode, 3 files are produced)       
+ |	  |_ BC30.fasta							 (FASTA sequences from basecalled FASTQ)       	
+ |	  |_ BC30.fasta_mode_closest.fasta		 (FASTA sequences the closest to the modal length)
+ |	  |_ BC30_stats.txt						 (Sequence statistics: total input, mode closest, etc.)     
+ |_ 2_individual_barcodes/					 
+ |	  |_ BC30/								 (for each BC, one folder is created)      
+ |			|_ 01_mapping_reads_to_refDB/	  (contains the files used for mapping all mode closest reads to the chosen reference database)      
+ |			|				|_ aln.bam
+ |			|				|_ aln.prim.bam
+ |			|				|_ aln.prim.bam.bai
+ |			|				|_ aln.prim.bam.stats
+ |			|				|_ aln.prim.sam
+ |			|				|_ aln.sam
+ |			|				|_ aln.sorted.bam
+ |			|				|_ list.mapped
+ |			|				|_ list.mappedS
+ |			|				|_ list.mapped.taxo
+ |			|				|_ new.prim.bam
+ |			|				|_ new.prim.bam.bai
+ |			|				|_ new.sam
+ |			|_ 02_individual_consensus/					(for each taxonomic level with enough reads, a consensus sequence is derived)
+ |			|				|_ genus_species_consensus/  (one folder per taxonomic level with alignment files)      
+ |			|				|        |_ aln1.bam
+ |			|				|        |_ aln1.mpileup
+ |			|				|        |_ aln1.mpileup.parsed
+ |			|				|        |_ aln1.sam
+ |			|				|        |_ aln1.sorted.bam
+ |			|				|        |_ BC30_ref_Corynebacterium_tuberculostearicum_consensus.fasta
+ |			|				|        |_ ConsensusPlot.html
+ |			|				|        |_ list_Corynebacterium_tuberculostearicum
+ |			|				|        |_ new1.bam
+ |			|				|        |_ new1.fasta
+ |			|				|        |_ R7g.Rmd
+ |			|				|        |_ REF1.fasta
+ |			|				|        |_ REF1.fasta.fai
+ |			|			    |_ BC30_consensus_sequences.fasta   (this file lists all consensus sequences that could be derived from the Barcoded sample)
+ |			|_ 03_BLAST_analysis/				(BLASTN analysis of the consensus sequences against the reference database)     
+ |			|			    |_ blast_alignment.txt
+ |			|			    |_ blast_nt_output_3.txt
+ |			|			    |_ blast_nt_output_7_new.txt
+ |			|			    |_ blast_nt_output_7.txt
+ |			|_ 04_phylogenetic_analysis/		(all consensus sequences are used with their closest BLASTN hits)	
+ |			|			    |_ 01_alignment/
+ |			|			    |       |_ mafft.fasta
+ |			|			    |       |_ mafft.fasta-gb
+ |			|			    |       |_ mafft.fasta-gb.htm
+ |			|			    |       |_ mafft.fasta-gb.uniqueseq.phy
+ |			|			    |       |_ mafftWithHeaders.clw
+ |			|			    |_ 02_phylogeny/						(Phylogenetic analysis results produced by iqtree)
+ |			|			    |       |_ mafft.fasta-gb.bionj			(NJ tree)    
+ |			|			    |       |_ mafft.fasta-gb.contree		(Ultrafast bootstrap approximation, Consensus tree in Newick format)    
+ |			|			    |       |_ mafft.fasta-gb.iqtree		(IQ-TREE report)    
+ |			|			    |       |_ mafft.fasta-gb.log			(Screen log file)    
+ |			|			    |       |_ mafft.fasta-gb.mldist		(Likelihood distances)    
+ |			|			    |       |_ mafft.fasta-gb.treefile		(Maximum-likelihood tree)    
+ |			|			    |       |_ README_file_info.txt
+ |			|			    |_ AllBlastREFs.fasta
+ |			|			    |_ AllBlastREFsUniq.fasta
+ |			|			    |_ CONSREF1.fasta
+ |			|			    |_ CONSREF1.header
+ |			|			    |_ CONSREF1_simple.fasta
+ |			|			    |_ OUTREFs.fasta
+ |			|_ 05_report/
+ |			|		|_ BC30.report				(text file report)			
+ |			|		|_ BC30_report.pdf			(PDF file report)
+ |			|_ 16S_stringent_custom.fasta		(reference database that was used ; can be deleted)
+ |			|_ 16S_stringent_custom.fasta.fai 	(reference database index that was used ; can be deleted)
+ |			|_ log.txt							(log for the specific barcode; here BC30)
+ |_ 3_PDF_reports/								(copy of PDF reports from all barcode folders)
+			|_ BC30_report.pdf
+
+
+Using the -V option, keeps all the files above, while omitting the -V option,     
+```
+source activate LORCAN-env
+FastqDir=/home/alban/test_software/LORCAN_install_test/LORCAN/1.8/example_files/input_test/
+cwd=/home/alban/test_software/LORCAN_install_test/LORCAN #should be the complete path here
+LORCAN -i $FastqDir -o $cwd/myOutputNoV -L log_main.txt -I $cwd/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d My16SDB 
+```
+no verbose mode, produces this structure instead:    
+
+XXXXXXXXXXXXXXXXXXXXXXXXX     
 
 
 
@@ -194,6 +320,16 @@ To exit from the LORCAN-env, type:
 ```
 source deactivate LORCAN-env        
 ```
+
+## USAGE
+```
+FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/
+cwd=/Analyses/Results   
+perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d MyDataBase`
+```     
+This command will produce an output structure as follows:     
+The results will be found in $cwd/myOutput/...        
+XXXXXXXXXX             
 
 
 # PARAMETERS        
@@ -226,15 +362,6 @@ source deactivate LORCAN-env
 will not be calculated.		
         
 
-## Example   
-```
-FastqDir=/storage/20190213_x3_Amplikon/fastq_pass/
-cwd=/Analyses/Results   
-perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d BiBi16SLong`
-```     
-This command will produce an output structure as follows:     
-The results will be found in $cwd/myOutput/...        
-XXXXXXXXXX             
 
 # How to cite?       		
 xxxx.    
