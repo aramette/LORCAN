@@ -1,4 +1,3 @@
-
 LORCAN "LOng Read Consensus ANalysis" 	 
 ====================================
 LORCAN version: **1.8**
@@ -18,8 +17,8 @@ All analysis steps are automated and a final report (PDF) is produced for each b
 - [ARGUMENTS](#ARGUMENTS)
 - [INSTALLATION](#INSTALLATION)
 - [CONFIGURATIONS](#CONFIGURATIONS)
-- [TEST PIPELINE](#TEST PIPELINE)
-- [How to cite?](#How to cite?)
+- [TEST](#TEST)
+- [CITATION?](#CITATION)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -221,7 +220,7 @@ Now indicate the path to the taxdict.csv file in the lib/config.pm file:
 our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/My16S_taxdict.csv";
 ```
 
-## TEST PIPELINE 
+## TEST 
 The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded amplicon samples.
 -  read length of 635.8 bp on average, ranging from 14-1,456 bp.       
 - 5,086,542 bases in total   
@@ -350,7 +349,7 @@ source deactivate LORCAN-env
        
 
 
-## How to cite?       		
+## CITATION       		
 xxxx.    
 
 
