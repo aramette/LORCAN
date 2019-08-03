@@ -18,7 +18,7 @@ All analysis steps are automated and a final report (PDF) is produced for each b
 - [INSTALLATION](#INSTALLATION)
 - [CONFIGURATIONS](#CONFIGURATIONS)
 - [TEST](#TEST)
-- [CITATION?](#CITATION)
+- [CITATION](#CITATION)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -32,7 +32,7 @@ perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213
 ## ARGUMENTS  
 | Flag | Description | 
 | :--------------: |:-----------| 
-|**`-h`**]| help information|
+|**-h**]| help information|
 |**-V** |verbose mode (for debugging). When selected, more detailed output is provided. When off, several intermediary files are removed.|          
 |**-v**| version number |     
 |**-d**| choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer) |      
@@ -126,7 +126,7 @@ now you can call the program directly using the alias *LORCAN* on the command li
 LORCAN -h
 ```
 
-## CONFIGURATIONS
+## CONFIGURATION
 **1) General pipeline configuration**     
 This step needs to be done only once when installing LORCAN.       
 Edit the lib/config.pm file in the LORCAN/lib folder with your favorite text editor.      
