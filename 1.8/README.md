@@ -131,7 +131,7 @@ LORCAN -h
 This step needs to be done only once when installing LORCAN.       
 Edit the lib/config.pm file in the LORCAN/lib folder with your favorite text editor.      
 This file contains the absolute paths to the dependencies (executable, databases).    
-Each field starting with "our" may need to be changed depending on your own configurTtion and system. Make sure you exactly write the paths as indicated in the config.pm template, including the extra information at the end of the line.       
+Each field starting with "our" may need to be changed depending on your own configuration and system. Make sure you exactly write the paths as indicated in the config.pm template.       
 e.g.        
 our $LIBDIRECTORY	="/path_to/LORCAN/1.8/lib"; 
 
@@ -157,9 +157,9 @@ which iqtree
 Then report the paths to the *lib/config.pm* file. An example file is provided in *lib/*.      
 
 **2) Assay-specific configuration**    
-For each assay (i.e. amplicon), the following configuration needs to be done once.     
+For each assay (i.e. 16S amplicon based on a specific set of primers), the following configuration needs to be done once.     
 Here we will use the LeBiBi database as an example for 16S rRNA gene sequences.        
-Example files are provided in the folder *example_files/*      
+Example files are provided in the folder *example_files/*.      
 
 Copy the Custom16S.tar.gz file to the LORCAN/DB/16S/ folder, and uncompress the tar.gz file:   
 ```
@@ -172,8 +172,8 @@ In the subfolder, you should see two example files:
 - 16S_stringent_custom_simplified.names   
 
 **Prepare the corresponding BLAST database**      
-Please refer to the document "Preparation of custom 16S database" for further indication about how to prepare the files.    
-https://github.com/aramette/LORCAN/blob/master/1.8/Create_custom_db/custom_16S.md
+Please refer to the document `Preparation of custom 16S database`[https://github.com/aramette/LORCAN/blob/master/1.8/Create_custom_db/custom_16S.md]  for further indications.    
+
 ```
 makeblastdb -in  16S_stringent_custom.fasta -dbtype nucl  
   
@@ -195,15 +195,16 @@ The TaxDictFile is a comma-separated-values file with 3 fields.
 Field_1,Field_2,Field_3      
        ^       ^          
 with: 		 
--Field_1: accession number (or unique id) of the seqeuence       
--Field_2: taxonomic_grouping with no space (e.g. Pseudomonas_aeruginosa). This information is used to regroup reference sequences by level during the LORCAN analysis.      
--Field_3: the full fasta header from the corresponding reference fasta file.       
+-**Field_1**: accession number (or unique id) of the seqeuence       
+-**Field_2**: taxonomic_grouping with no space (e.g. Pseudomonas_aeruginosa). This information is used to regroup reference sequences by level during the LORCAN analysis.      
+-**Field_3**: the full fasta header from the corresponding reference fasta file.       
 
-e.g.        
+e.g.
+```
 URS00000B1AF5,Abiotrophia_defectiva,Abiotrophia_defectiva\~v\~TT\~URS00000B1AF5=Bacteria-Firmicutes-Bacilli-Lactobacillales-Aerococcaceae-Abiotrophia-Abiotrophia_defectiva       
+```
 
-
-Here is a small command-line script to extract and format the necessary information into a taxdict.csv file:       
+Here is a small command-line script to extract and format the necessary information to creeate a taxdict.csv file:       
 ```
 grep ">"  16S_stringent_custom.fasta | sed 's/>//' | awk -F\~ '{print $4","$1","$1"~"$2"~"$3"~"$4}' > My16S_taxdict.csv
 ```
@@ -221,9 +222,7 @@ our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/Bi
 ```
 
 ## TEST 
-The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded amplicon samples.
--  read length of 635.8 bp on average, ranging from 14-1,456 bp.       
-- 5,086,542 bases in total   
+The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded 16S amplicon samples, with read length of 635.8 bp on average, ranging from 14-1,456 bp, and 5,086,542 bases in total.      
 
 Uncompress the file:
 ```
@@ -237,6 +236,7 @@ cwd=/home/alban/test_software/LORCAN_install_test/LORCAN #should be the complete
 LORCAN -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d My16SDB
 ```
 
+The PDF reports for each sample should match the information in the table below:         
 
 | Sample ID       | Input reads | Consensus sequence |
 | :-------------- |:-----------:| :---------------------------------------------------------|
@@ -261,7 +261,7 @@ LORCAN -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/sample_id.txt -n
 - Taxo = Taxonomic assignment based on read mapping, BLAST similarity analysis, and phylogenetic tree positioning
 
 
-After few minutes, the /LORCAN/myOutput folder should contain the following structure:    
+The /LORCAN/myOutput folder should contain the following structure:    
 ```
  myOutput/
  |_ 0_logs/
