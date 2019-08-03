@@ -338,7 +338,7 @@ The /LORCAN/myOutput folder should contain the following structure:
 ```
 
 
-To exit from the LORCAN-env, type: 
+To exit from the *LORCAN-env*, type: 
 ```
 source deactivate LORCAN-env        
 ```
