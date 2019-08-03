@@ -1,4 +1,4 @@
-LORCAN "LOng Read Consensus ANalysis" 	 
+*LORCAN* "LOng Read Consensus ANalysis" 	 
 ====================================
 LORCAN version: **1.8**
 
