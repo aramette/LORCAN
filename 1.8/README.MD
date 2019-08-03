@@ -32,7 +32,7 @@ perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213
 ## ARGUMENTS  
 | Flag | Description | 
 | :--------------: |:-----------| 
-|**-h** [`-h`]| help information|
+|**`-h`**]| help information|
 |**-V** |verbose mode (for debugging). When selected, more detailed output is provided. When off, several intermediary files are removed.|          
 |**-v**| version number |     
 |**-d**| choice of the database for alignment (e.g. BiBi16S, ADV...) Must match declaration in config.pm. Must be primer customized (no primer) |      
