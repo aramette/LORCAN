@@ -176,7 +176,6 @@ Please refer to the document `Preparation of custom 16S database`[https://github
 
 ```
 makeblastdb -in  16S_stringent_custom.fasta -dbtype nucl  
-  
 ```
 
 Now indicate the path to the fasta file in the lib/config.pm file:    
@@ -191,9 +190,7 @@ Note than additional databases can be also listed in the config.pm file (separat
 
 
 Finally, prepare the **TaxDictFile** (Taxonomy Dictionary file) as follows:      
-The TaxDictFile is a comma-separated-values file with 3 fields.      
-Field_1,Field_2,Field_3      
-       ^       ^          
+The TaxDictFile is a comma-separated-values file with 3 fields: **`Field_1,Field_2,Field_3`**      
 with: 		 
 -**Field_1**: accession number (or unique id) of the seqeuence       
 -**Field_2**: taxonomic_grouping with no space (e.g. Pseudomonas_aeruginosa). This information is used to regroup reference sequences by level during the LORCAN analysis.      
@@ -216,7 +213,6 @@ cat My16S_taxdict.csv | cut -f2 --delim=","  | grep "subsp" | sort | uniq
 ```
 
 Now indicate the path to the taxdict.csv file in the lib/config.pm file:           
-
 ```
 our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/My16S_taxdict.csv";
 ```
