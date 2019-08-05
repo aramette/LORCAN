@@ -29,7 +29,7 @@ perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213
 ```     
 
 ## ARGUMENTS                 
-<a href="#top">                                                                                              ↥ back to top</a>          
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
 
 | Flag | Description | 
 | :--------------: |:-----------| 
