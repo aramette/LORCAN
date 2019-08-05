@@ -73,12 +73,19 @@ To test your installation, in your terminal, type `conda list`
 If you read “bash: conda: command not found...”, then the conda installation was not successful and LORCAN cannot be installed with conda.     
 Otherwise, you should see some text in the console, starting with "#packages in environment at...".       
 
-2.	Create a dedicated environment (to do only once):     
+
+There are two options to install the dependencies (3A: facilitated, 3B: manual).      
+3A.	Install the dependencies using the yaml file provided:     
+```
+conda env create -f lorcan.yml
+```
+
+3B.	Create a dedicated environment (to do only once):     
 ```
 conda create -n LORCAN-env         
 ```
 
-3.	Install the dependencies in the activated environment (the pipeline was only tested with the versions listed below):      
+Install the dependencies in the activated environment (the pipeline was only tested with the versions listed below):      
 ```
 source activate LORCAN-env         
 conda install seqkit=0.8.0       
