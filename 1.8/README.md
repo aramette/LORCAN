@@ -28,8 +28,8 @@ cwd=/Analyses/Results
 perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d MyDataBase
 ```     
 
-<a href="#top">↥ back to top</a>
-## ARGUMENTS  
+
+## ARGUMENTS        <a href="#top">↥ back to top</a>         
 | Flag | Description | 
 | :--------------: |:-----------| 
 |**-h**| help information|
@@ -58,7 +58,7 @@ BC18:2019-068
 BC19:2019-069      
 ```
 
-## INSTALLATION       
+## INSTALLATION        <a href="#top">↥ back to top</a>                
 ***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture), and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
 The recommended way is to use a *conda* (*anaconda*, *miniconda*) environment to install the software and its dependencies.     
@@ -129,7 +129,7 @@ now you can call the program directly using the alias *LORCAN* on the command li
 LORCAN -h
 ```
 
-## CONFIGURATION
+## CONFIGURATION        <a href="#top">↥ back to top</a>         
 **1) General pipeline configuration**     
 This step needs to be done only once when installing LORCAN.       
 Edit the lib/config.pm file in the LORCAN/lib folder with your favorite text editor.      
@@ -235,7 +235,7 @@ our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/Bi
 ```
 The *config.pm* file is now properly edited.      
 
-## TEST 
+## TEST        <a href="#top">↥ back to top</a>          
 The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded 16S amplicon samples, with read length of 635.8 bp on average, ranging from 14-1,456 bp, and 5,086,542 bases in total.      
 
 Uncompress the file:
@@ -368,7 +368,7 @@ source deactivate LORCAN-env
        
 
 
-## CITATION       		
+## CITATION        <a href="#top">↥ back to top</a>                		
 xxxx.    
 
 
