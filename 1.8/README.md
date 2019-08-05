@@ -60,7 +60,7 @@ BC19:2019-069
 ```
 
 ## INSTALLATION             
-<a href="#top">                                                                                              ↥ back to top</a>        
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
 
 ***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture), and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
@@ -133,7 +133,7 @@ LORCAN -h
 ```
 
 ## CONFIGURATION         
-<a href="#top">                                                                                              ↥ back to top</a>       
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
 
 **1) General pipeline configuration**     
 This step needs to be done only once when installing LORCAN.       
@@ -167,6 +167,8 @@ Then report the paths to the *lib/config.pm* file. An example file is provided i
 <a href="#top">↥ back to top</a>          
 
 **2) Assay-specific configuration**    
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
+
 For each assay (i.e. 16S amplicon based on a specific set of primers), the following configuration needs to be done once.     
 Here we will use the LeBiBi database as an example for 16S rRNA gene sequences.        
 Example files are provided in the folder *example_files/*.      
@@ -183,6 +185,8 @@ In the subfolder, you should see two example files:
 - 16S_stringent_custom_simplified.names   
 
 **Prepare the corresponding BLAST database**      
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
+
 Please refer to the document `Preparation of custom 16S database`[https://github.com/aramette/LORCAN/blob/master/1.8/Create_custom_db/custom_16S.md]  for further indications.    
 
 ```
@@ -243,7 +247,7 @@ The *config.pm* file is now properly edited.
 
 
 ## TEST                  
-<a href="#top">                                                                                              ↥ back to top</a>          
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
 
 The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded 16S amplicon samples, with read length of 635.8 bp on average, ranging from 14-1,456 bp, and 5,086,542 bases in total.      
 
@@ -288,6 +292,8 @@ The PDF reports for each sample can be found in *myOutput/3_PDF_reports/*. They 
 - G = number of bases present in the reference sequence, but absent in the consensus sequence (deletions)
 - Taxo = Taxonomic assignment based on read mapping, BLAST similarity analysis, and phylogenetic tree positioning
 
+
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
 
 The /LORCAN/myOutput folder should contain the following structure:    
 ```
@@ -376,7 +382,7 @@ source deactivate LORCAN-env
 ```
        
 ## CITATION     
-<a href="#top">                                                                                              ↥ back to top</a>     
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
 
 xxxx.    
 
