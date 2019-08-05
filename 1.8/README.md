@@ -164,7 +164,7 @@ which iqtree
 ```
 Then report the paths to the *lib/config.pm* file. An example file is provided in *lib/*.     
 
-<a href="#top">↥ back to top</a>          
+
 
 **2) Assay-specific configuration**    
 <P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
