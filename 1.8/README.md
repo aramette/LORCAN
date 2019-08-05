@@ -74,13 +74,15 @@ If you read “bash: conda: command not found...”, then the conda installation
 Otherwise, you should see some text in the console, starting with "#packages in environment at...".       
 
 
-There are two options to install the dependencies (3A: facilitated, 3B: manual).      
-3A.	Install the dependencies using the yaml file provided:     
+There are two options to install the dependencies (3A: facilitated, 3B: manual).    
+
+3A.	Install all dependencies at once using the *yaml* file provided:     
 ```
 conda env create -f lorcan.yml
 ```
+Note: the name of the environment can be modified in the yaml file.
 
-3B.	Create a dedicated environment (to do only once):     
+3B.	Create a dedicated environment (to do only once) and install the dependencies one by one in the environment:     
 ```
 conda create -n LORCAN-env         
 ```
