@@ -14,7 +14,7 @@ From basecalled nanopore reads in FASTQ format, the pipeline produces consensus 
 - [USAGE](#USAGE)
 - [ARGUMENTS](#ARGUMENTS)
 - [INSTALLATION](#INSTALLATION)
-- [CONFIGURATIONS](#CONFIGURATIONS)
+- [CONFIGURATION](#CONFIGURATION)
 - [TEST](#TEST)
 - [CITATION](#CITATION)
 
@@ -196,15 +196,11 @@ Finally, prepare the **TaxDictFile** (Taxonomy Dictionary file) as follows:
 The TaxDictFile is a comma-separated-values file with 3 fields: **`Field_1,Field_2,Field_3`**      
 with:       
 
-|||
+|Field| Description|
 |:-----:|:----------|
-|**Field_1**|accession number (or unique id) of the sequence |
-|**Field_2**|taxonomic_grouping with no space (e.g. Pseudomonas_aeruginosa). This information is used to regroup reference sequences by level during the LORCAN analysis |
-
-
--**Field_1**: accession number (or unique id) of the sequence        
--**Field_2**: taxonomic_grouping with no space (e.g. Pseudomonas_aeruginosa). This information is used to regroup reference sequences by level during the LORCAN analysis.      
--**Field_3**: the full fasta header from the corresponding reference fasta file.       
+|**Field_1**| Accession number (or unique id) of the sequence |
+|**Field_2**| Taxonomic_grouping with no space (e.g. Pseudomonas_aeruginosa). This information is used to regroup reference sequences by level during the LORCAN analysis |
+|**Field_3**| The full fasta header from the corresponding reference fasta file |
 
 e.g.
 ```
