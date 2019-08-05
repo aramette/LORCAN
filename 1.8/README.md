@@ -70,26 +70,26 @@ To test your installation, in your terminal, type `conda list`
 If you read “bash: conda: command not found...”, then the conda installation was not successful and LORCAN cannot be installed with conda.     
 Otherwise, you should see some text in the console, starting with "#packages in environment at...".       
 
-2.	Create a dedicated environment (to do once):     
+2.	Create a dedicated environment (to do only once):     
 ```
 conda create -n LORCAN-env         
 ```
 
-3.	Install the dependencies in the activated environment:      
+3.	Install the dependencies in the activated environment (the pipeline was only tested with the versions listed below):      
 ```
 source activate LORCAN-env         
-conda install seqkit=0.8.0; seqkit version #OK       
+conda install seqkit=0.8.0       
 conda install porechop=0.2.3_seqan2.1.1
-conda install mafft=v7.313
-conda install Gblocks           		
+conda install mafft=7.407
+conda install Gblocks=0.91b           		
 conda install iqtree=1.6.11	             	
 conda install minimap2=2.17	       
-conda install samtools       
-conda install blast       
-cpanm Parallel::ForkManager 	       
-cpanm FindBin
-conda install -c anaconda gcc_linux-64
-cpanm PDF::API2       
+conda install samtools=1.9       
+conda install blast=2.9.0       
+cpanm Parallel::ForkManager@2.02 	       
+cpanm FindBin@1.51
+conda install -c anaconda gcc_linux-64=7.3.0
+cpanm PDF::API2@2.034       
 ```
 
 To save some space, optionally remove unneeded files:    
@@ -99,7 +99,7 @@ conda clean --tarballs; conda clean --package
 
 
 4.	Clone the *LORCAN* binaries from GitHub to your own machine:          
-(move first to the directory where you want to install LORCAN)      
+(create and move first to the directory where you want to install LORCAN)      
 ```
 git clone https://github.com/aramette/LORCAN.git    
 ```
@@ -109,11 +109,14 @@ git clone https://github.com/aramette/LORCAN.git
 cd LORCAN/1.8/lib
 perl lorcan.pl -h
 ```
+At this stage, you should see the *help* menu being listed in your console. Otherwise, the download was not successful.        
+
 
 6. Optional, but recommended:      
 To be able to run the command everywhere on your system with the current username, edit your `~/.bashrc` file by running the following command that adds an alias to the .bashrc file:           
 ```
-printf "alias LORCAN=\'perl /path_to_your_directory/LORCAN/1.8/lib/lorcan.pl\'">> ~/.bashrc
+PWD=`pwd`    # /pathto/LORCAN/1.8/lib
+printf "alias LORCAN=\'perl $PWD/lorcan.pl\'">> ~/.bashrc
 
 ```
 Then run:    
@@ -165,6 +168,7 @@ Copy the Custom16S.tar.gz file to the LORCAN/DB/16S/ folder, and uncompress the 
 ```
 mkdir -p LORCAN/DB/16S/
 cd LORCAN/DB/16S/
+cp ../../1.8/example_files/Custom16S.tar.gz .    
 tar xvzf Custom16S.tar.gz 
 ```
 In the subfolder, you should see two example files:   
@@ -186,7 +190,7 @@ Now indicate the path to the fasta file in the lib/config.pm file:
 	MyOtherGeneDB => "/storage/databases/adenovirus/2018_10_10/Human_Adenovirus_genomes_20181010.fasta",
 );
 ```
-Note than additional databases can be also listed in the config.pm file (separated by a comma; see above).          
+**Note**: Additional databases can be also listed in the config.pm file (separated by a comma; see example above). The name of the database (e.g. *"My16SDB"*) is what needs to be specified after the *-d* flag  when using *lorcan.pl* script).          
 
 
 Finally, prepare the **TaxDictFile** (Taxonomy Dictionary file) as follows:      
@@ -211,12 +215,23 @@ grep ">"  16S_stringent_custom.fasta | sed 's/>//' | awk -F\~ '{print $4","$1","
 To print Field_2 with *subsp* information:    
 ```
 cat My16S_taxdict.csv | cut -f2 --delim=","  | grep "subsp" | sort | uniq
+
+## output:
+# Acidovorax_avenae_subsp._avenae
+# Acinetobacter_calcoaceticus_subsp._anitratus
+# Actinobacillus_equuli_subsp._equuli
+# Actinobacillus_equuli_subsp._haemolyticus
+# …
+
 ```
+
 
 Now indicate the path to the taxdict.csv file in the lib/config.pm file:           
 ```
+pwd
 our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/BiBi/My16S_taxdict.csv";
 ```
+The *config.pm* file is now properly edited.      
 
 ## TEST 
 The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded 16S amplicon samples, with read length of 635.8 bp on average, ranging from 14-1,456 bp, and 5,086,542 bases in total.      
@@ -226,14 +241,19 @@ Uncompress the file:
 gunzip fastq_0.fastq.gz   
 ```   
 
+A sample_id text file should be prepared. One example is provided in LORCAN/1.8/example_files.          
+
 Run LORCAN with the following parameters:      
 ```
-FastqDir=/home/alban/test_software/LORCAN_install_test/LORCAN/1.8/example_files/input_test/
-cwd=/home/alban/test_software/LORCAN_install_test/LORCAN #should be the complete path here
-LORCAN -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d My16SDB
-```
+WD=/path_of_your working_directory
+EF=/pathto/LORCAN/1.8/example_files
+FastqDir=$EF/input_test/
 
-The PDF reports for each sample should match the information in the table below:         
+LORCAN -V -i $FastqDir -o $WD/myOutput -L log_main.txt -I $EF/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5 -d My16SDB
+```
+The results will be available in *$WD/myOutput* directory after 2-3 min or so.       
+
+The PDF reports for each sample can be found in *myOutput/3_PDF_reports/*. They should match the information in the table below:         
 
 | Sample ID       | Input reads | Consensus sequence |
 | :-------------- |:-----------:| :---------------------------------------------------------|
@@ -262,80 +282,80 @@ The /LORCAN/myOutput folder should contain the following structure:
 ```
  myOutput/
  |_ 0_logs/
- | 	  |_ log_main.txt						 (overall run log)       
- |	  |_ 1_initial_fastq_stats.txt 			 (fastq stats before demultiplexing)       
- |	  |_ 2_stats_fastq_postporechop.txt 	 (fastq stats after demultiplexing)       
- |	  |_ 3_Barcodes_with_modal_sequences.txt (BC number with modal sequences)       
- |_ 1_fasta/ 								 (for each barcode, 3 files are produced)       
- |	  |_ BC30.fasta							 (FASTA sequences from basecalled FASTQ)       	
- |	  |_ BC30.fasta_mode_closest.fasta		 (FASTA sequences the closest to the modal length)
- |	  |_ BC30_stats.txt						 (Sequence statistics: total input, mode closest, etc.)     
+ | 	 |_ log_main.txt		 (overall run log)       
+ |	 |_ 1_initial_fastq_stats.txt 	 (fastq stats before demultiplexing)       
+ |	 |_ 2_stats_fastq_postporechop.txt   (fastq stats after demultiplexing)       
+ |	 |_ 3_Barcodes_with_modal_sequences.txt (BC number with modal sequences)       
+ |_ 1_fasta/ 		  (for each barcode, 3 files are produced)       
+ |	 |_ BC30.fasta		           (FASTA sequences from basecalled FASTQ)       	
+ |	 |_ BC30.fasta_mode_closest.fasta  (FASTA sequences the closest to the modal length)
+ |	 |_ BC30_stats.txt		   (Sequence statistics: total input, mode closest, etc.)     
  |_ 2_individual_barcodes/					 
- |	  |_ BC30/								 (for each BC, one folder is created)      
- |			|_ 01_mapping_reads_to_refDB/	  (contains the files used for mapping all mode closest reads to the chosen reference database)      
- |			|				|_ aln.bam				(only if -V flag is used)
- |			|				|_ aln.prim.bam			(only if -V flag is used)
- |			|				|_ aln.prim.bam.bai		(only if -V flag is used)
- |			|				|_ aln.prim.bam.stats	(only if -V flag is used)
- |			|				|_ aln.prim.sam			(only if -V flag is used)
- |			|				|_ aln.sam				(only if -V flag is used)
- |			|				|_ aln.sorted.bam		(only if -V flag is used)
- |			|				|_ list.mapped			(only if -V flag is used)
- |			|				|_ list.mappedS			(only if -V flag is used)
- |			|				|_ list.mapped.taxo		
- |			|				|_ new.prim.bam			(only if -V flag is used)
- |			|				|_ new.prim.bam.bai		(only if -V flag is used)
- |			|				|_ new.sam				(only if -V flag is used)
- |			|_ 02_individual_consensus/					(for each taxonomic level with enough reads, a consensus sequence is derived)
- |			|				|_ Corynebacterium_tubercuostearicum_consensus/  (one folder per taxonomic level with alignment files)      
- |			|				|        |_ aln1.bam		(only if -V flag is used)
- |			|				|        |_ aln1.mpileup	(only if -V flag is used)
- |			|				|        |_ aln1.mpileup.parsed	(only if -V flag is used)
- |			|				|        |_ aln1.sam			(only if -V flag is used)
- |			|				|        |_ aln1.sorted.bam		(only if -V flag is used)
- |			|				|        |_ BC30_ref_Corynebacterium_tubercuostearicum_consensus.fasta 
- |			|				|        |_ ConsensusPlot.html		
- |			|				|        |_ list_Corynebacterium_tuberculostearicum 
- |			|				|        |_ new1.bam	(only if -V flag is used)
- |			|				|        |_ new1.fasta	(only if -V flag is used)
- |			|				|        |_ R7g.Rmd		(only if -V flag is used)
- |			|				|        |_ REF1.fasta				
- |			|				|        |_ REF1.fasta.fai			
- |			|			    |_ BC30_consensus_sequences.fasta   (this file lists all consensus sequences that could be derived from the Barcoded sample)
- |			|_ 03_BLAST_analysis/				(BLASTN analysis of the consensus sequences against the reference database)     
- |			|			    |_ blast_alignment.txt
- |			|			    |_ blast_nt_output_3.txt
- |			|			    |_ blast_nt_output_7_new.txt
- |			|			    |_ blast_nt_output_7.txt
- |			|_ 04_phylogenetic_analysis/		(all consensus sequences are used with their closest BLASTN hits)	
- |			|			    |_ 01_alignment/
- |			|			    |       |_ mafft.fasta
- |			|			    |       |_ mafft.fasta-gb
- |			|			    |       |_ mafft.fasta-gb.htm
- |			|			    |       |_ mafft.fasta-gb.uniqueseq.phy
- |			|			    |       |_ mafftWithHeaders.clw
- |			|			    |_ 02_phylogeny/						(Phylogenetic analysis results produced by iqtree)
- |			|			    |       |_ mafft.fasta-gb.bionj			(NJ tree)    
- |			|			    |       |_ mafft.fasta-gb.contree		(Ultrafast bootstrap approximation, Consensus tree in Newick format)    
- |			|			    |       |_ mafft.fasta-gb.iqtree		(IQ-TREE report)    
- |			|			    |       |_ mafft.fasta-gb.log			(Screen log file)    
- |			|			    |       |_ mafft.fasta-gb.mldist		(Likelihood distances)    
- |			|			    |       |_ mafft.fasta-gb.treefile		(Maximum-likelihood tree)    
- |			|			    |       |_ README_file_info.txt
- |			|			    |_ AllBlastREFs.fasta		(only if -V flag is used)
- |			|			    |_ AllBlastREFsUniq.fasta	(only if -V flag is used)
- |			|			    |_ CONSREF1.fasta
- |			|			    |_ CONSREF1.header
- |			|			    |_ CONSREF1_simple.fasta	(only if -V flag is used)
- |			|			    |_ OUTREFs.fasta			(only if -V flag is used)
- |			|_ 05_report/
- |			|		|_ BC30.report				(text file report)			
- |			|		|_ BC30_report.pdf			(PDF file report)
- |			|_ 16S_stringent_custom.fasta		(reference database that was used ; can be deleted)
- |			|_ 16S_stringent_custom.fasta.fai 	(reference database index that was used ; can be deleted)
- |			|_ log.txt							(log for the specific barcode; here BC30)
- |_ 3_PDF_reports/								(copy of PDF reports from all barcode folders)
-			|_ BC30_report.pdf
+ |	|_ BC30/    (for each BC, one folder is created)      
+ |	    |_ 01_mapping_reads_to_refDB/  (all files used for mapping all mode closest reads to the chosen reference database)      
+ |	    |	   |_ aln.bam		(only if -V flag is used)
+ |	    |	   |_ aln.prim.bam	(only if -V flag is used)
+ |	    |	   |_ aln.prim.bam.bai	(only if -V flag is used)
+ |	    |	   |_ aln.prim.bam.stats  (only if -V flag is used)
+ |	    |	   |_ aln.prim.sam	(only if -V flag is used)
+ |	    |	   |_ aln.sam		(only if -V flag is used)
+ |	    |	   |_ aln.sorted.bam	(only if -V flag is used)
+ |	    |	   |_ list.mapped	(only if -V flag is used)
+ |	    |	   |_ list.mappedS	(only if -V flag is used)
+ |	    |	   |_ list.mapped.taxo	
+ |	    |	   |_ new.prim.bam	(only if -V flag is used)
+ |	    |	   |_ new.prim.bam.bai	(only if -V flag is used)
+ |	    |	   |_ new.sam		(only if -V flag is used)
+ |	    |_ 02_individual_consensus/	  (for each taxonomic level with enough reads, a consensus sequence is derived)
+ |	    |	   |_ Corynebacterium_tubercuostearicum_consensus/  (one folder per taxonomic level with alignment files)      
+ |	    |	   |        |_ aln1.bam		(only if -V flag is used)
+ |	    |	   |        |_ aln1.mpileup	(only if -V flag is used)
+ |	    |	   |        |_ aln1.mpileup.parsed	(only if -V flag is used)
+ |	    |	   |        |_ aln1.sam			(only if -V flag is used)
+ |	    |	   |        |_ aln1.sorted.bam		(only if -V flag is used)
+ |	    |	   |        |_ BC30_ref_Corynebacterium_tubercuostearicum_consensus.fasta 
+ |	    |	   |        |_ ConsensusPlot.html		
+ |	    |	   |        |_ list_Corynebacterium_tuberculostearicum 
+ |	    |	   |        |_ new1.bam	(only if -V flag is used)
+ |	    |	   |        |_ new1.fasta	(only if -V flag is used)
+ |	    |	   |        |_ R7g.Rmd		(only if -V flag is used)
+ |	    |	   |        |_ REF1.fasta				
+ |	    |	   |        |_ REF1.fasta.fai			
+ |	    |	   |_ BC30_consensus_sequences.fasta (this file lists all consensus sequences that could be derived for the barcoded sample)
+ |	    |_ 03_BLAST_analysis/  (BLASTN analysis of the consensus sequences against the reference database)     
+ |	    |		    |_ blast_alignment.txt
+ |	    |			    |_ blast_nt_output_3.txt
+ |	    |			    |_ blast_nt_output_7_new.txt
+ |	    |			    |_ blast_nt_output_7.txt
+ |	    |_ 04_phylogenetic_analysis/  (all consensus sequences are used with their closest BLASTN hits)	
+ |	    |	   |_ 01_alignment/
+ |	    |	   |       |_ mafft.fasta
+ |	    |	   |       |_ mafft.fasta-gb
+ |	    |	   |       |_ mafft.fasta-gb.htm
+ |	    |	   |       |_ mafft.fasta-gb.uniqueseq.phy
+ |	    |	   |       |_ mafftWithHeaders.clw
+ |	    |	   |_ 02_phylogeny/	(Phylogenetic analysis results produced by iqtree)
+ |	    |	   |       |_ mafft.fasta-gb.bionj   (NJ tree)    
+ |	    |	   |       |_ mafft.fasta-gb.contree  (Ultrafast bootstrap approximation, Consensus tree in Newick format)    
+ |	    |	   |       |_ mafft.fasta-gb.iqtree  (IQ-TREE report)    
+ |	    |	   |       |_ mafft.fasta-gb.log	(Screen log file)    
+ |	    |	   |       |_ mafft.fasta-gb.mldist  (Likelihood distances)    
+ |	    |	   |       |_ mafft.fasta-gb.treefile (Maximum-likelihood tree)    
+ |	    |	   |       |_ README_file_info.txt
+ |	    |	   |_ AllBlastREFs.fasta	(only if -V flag is used)
+ |	    |	   |_ AllBlastREFsUniq.fasta	(only if -V flag is used)
+ |	    |	   |_ CONSREF1.fasta
+ |	    |	   |_ CONSREF1.header
+ |	    |	   |_ CONSREF1_simple.fasta (only if -V flag is used)
+ |	    |	   |_ OUTREFs.fasta	 (only if -V flag is used)
+ |	    |_ 05_report/
+ |	    |	   |_ BC30.report		(text file report)			
+ |	    |	   |_ BC30_report.pdf	(PDF file report)
+ |	    |_ 16S_stringent_custom.fasta	(reference database that was used ; can be deleted)
+ |	    |_ 16S_stringent_custom.fasta.fai 	(reference database index that was used ; can be deleted)
+ |	    |_ log.txt	(log for the specific barcode; here BC30)
+ |_ 3_PDF_reports/	(copy of PDF reports from all barcode folders)
+	    |_ BC30_report.pdf
 ```
 
 
