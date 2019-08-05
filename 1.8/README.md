@@ -28,7 +28,7 @@ cwd=/Analyses/Results
 perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213_x3_Amplikon_2/sample_id.txt -n 20 -m 10 -M 3000 -P 100 -D 5  -d MyDataBase
 ```     
 
-<a href="#----">↥ back to top</a>
+<a href="#top">↥ back to top</a>
 ## ARGUMENTS  
 | Flag | Description | 
 | :--------------: |:-----------| 
