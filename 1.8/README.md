@@ -58,7 +58,9 @@ BC17:2019-067
 BC18:2019-068      	
 BC19:2019-069      
 ```
-						<a href="#top">↥ back to top</a>      
+
+<a href="#top">↥ back to top</a>          
+
 ## INSTALLATION                       
 ***Disclaimer***: The pipeline was developed and tested with Scientific Linux 7.4 (x86-64 server architecture), and may only work in a GNU/Linux environment. Other OS have not been tested and are not likely to be compatible with the software.    
 
@@ -129,7 +131,9 @@ now you can call the program directly using the alias *LORCAN* on the command li
 ```
 LORCAN -h
 ```
-						<a href="#top">↥ back to top</a>      
+
+<a href="#top">↥ back to top</a>          
+
 ## CONFIGURATION                 
 **1) General pipeline configuration**     
 This step needs to be done only once when installing LORCAN.       
@@ -158,7 +162,9 @@ which mafft
 which Gblocks
 which iqtree
 ```
-Then report the paths to the *lib/config.pm* file. An example file is provided in *lib/*.      
+Then report the paths to the *lib/config.pm* file. An example file is provided in *lib/*.     
+
+<a href="#top">↥ back to top</a>          
 
 **2) Assay-specific configuration**    
 For each assay (i.e. 16S amplicon based on a specific set of primers), the following configuration needs to be done once.     
@@ -236,7 +242,8 @@ our $TaxDictFile="/home/alban/test_software/LORCAN_install_test/LORCAN/DB/16S/Bi
 ```
 The *config.pm* file is now properly edited.      
 
-						<a href="#top">↥ back to top</a>      
+<a href="#top">↥ back to top</a>          
+
 ## TEST                  
 The test data (in example_files/input_test/) consists of a FASTQ file containing 8000 sequences from several barcoded 16S amplicon samples, with read length of 635.8 bp on average, ranging from 14-1,456 bp, and 5,086,542 bases in total.      
 
@@ -368,8 +375,8 @@ To exit from the *LORCAN-env*, type:
 source deactivate LORCAN-env        
 ```
        
+<a href="#top">↥ back to top</a>          
 
-						<a href="#top">↥ back to top</a>      
 ## CITATION                        		
 xxxx.    
 
