@@ -16,6 +16,7 @@ From basecalled nanopore reads in FASTQ format, the pipeline produces consensus 
 - [INSTALLATION](#INSTALLATION)
 - [CONFIGURATION](#CONFIGURATION)
 - [TEST](#TEST)
+- [FEEDBACK](#FEEDBACK)
 - [CITATION](#CITATION)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -389,7 +390,10 @@ To exit from the *LORCAN-env*, type:
 ```
 source deactivate LORCAN-env        
 ```
-       
+
+## FEEDBACK
+Please file questions, bugs or ideas to the [Issue Tracker](https://github.com/aramette/LORCAN/issues).
+
 ## CITATION     
 <P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
 
