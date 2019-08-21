@@ -47,7 +47,7 @@ perl lorcan.pl -V -i $FastqDir -o $cwd/myOutput -L log_main.txt -I $cwd/20190213
 |**-M**| maximum number of reads to retain per sample (e.g. 3000)|      
 |**-n**| nber of threads e.g. 20|       
 |**-o**| full path to the output directory e.g. /path_to/output. The "output" directory folder is automatically created and appended to the indicated path.|            
-|**-P**| minimum  number of read aligned for a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group will not be calculated.|		
+|**-P**| minimum  number of read aligned to a reference for the latter to be further considered (e.g 100 for 100 reads). In other words, this indicates the number of reads per taxonomic group under which the consensus per taxonomic group will not be calculated.|		
 
 
 This is an example of *sample_id.txt* file with 3 barcoded samples:     
