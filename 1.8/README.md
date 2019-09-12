@@ -395,7 +395,7 @@ source deactivate LORCAN-env
 Please file questions, bugs or ideas to the [Issue Tracker](https://github.com/aramette/LORCAN/issues).
 
 ## CITATION     
-<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
-Stefan Moritz Neuenschwander, Miguel Angel Terrazos Miani, Heiko Amlang, Carmen Perroulaz, Pascal Bittel, Carlo Casanova, Sara Droz, Jean-Pierre Flandrois, Stephen L. Leib, Franziska Suter-Riniker, Alban Ramette.
-"**A sample-to-report solution for taxonomic identification of cultured bacteria in the clinical setting based on nanopore sequencing.**" (https://www.biorxiv.org/content/10.1101/752774v1)
+Stefan Moritz **Neuenschwander**, Miguel Angel **Terrazos Miani**, Heiko **Amlang**, Carmen **Perroulaz**, Pascal **Bittel**, Carlo **Casanova**, Sara **Droz**, Jean-Pierre **Flandrois**, Stephen L. **Leib**, Franziska **Suter-Riniker**, Alban **Ramette**.
+**A sample-to-report solution for taxonomic identification of cultured bacteria in the clinical setting based on nanopore sequencing.** (https://www.biorxiv.org/content/10.1101/752774v1)
 
+<P ALIGN=RIGHT><a href="#top">↥ back to top</a></P>          
