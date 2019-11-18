@@ -75,20 +75,12 @@ If you read “bash: conda: command not found...”, then the conda installation
 Otherwise, you should see some text in the console, starting with "#packages in environment at...".       
 
 
-There are two options to install the dependencies (3A: facilitated, 3B: manual).    
-
-3A.	Install all dependencies at once using the *yaml* file provided:     
-```
-conda env create -f lorcan.yml
-```
-Note: the name of the environment can be modified in the yaml file.
-
-3B.	Create a dedicated environment (to do only once) and install the dependencies one by one in the environment:     
+Recommended option to install the dependencies using *conda*:    
 ```
 conda create -n LORCAN-env         
 ```
 
-Install the dependencies in the activated environment (the pipeline was only tested with the versions listed below):      
+Activate the environment and install the dependencies in the environment (the pipeline was only tested with the versions listed below):      
 ```
 source activate LORCAN-env         
 conda install -c bioconda seqkit=0.8.0       
@@ -112,6 +104,7 @@ conda clean --tarballs; conda clean --package
 
 4.	Clone the *LORCAN* binaries from GitHub to your own machine:          
 (create and move first to the directory where you want to install LORCAN)      
+you may have to install git and also point to the correct certificate (or use -c http.sslVerify=false option with git)
 ```
 git clone https://github.com/aramette/LORCAN.git    
 ```
