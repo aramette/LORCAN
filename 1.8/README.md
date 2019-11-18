@@ -91,18 +91,17 @@ conda create -n LORCAN-env
 Install the dependencies in the activated environment (the pipeline was only tested with the versions listed below):      
 ```
 source activate LORCAN-env         
-conda install seqkit=0.8.0       
-conda install porechop=0.2.3_seqan2.1.1
-conda install mafft=7.407
-conda install Gblocks=0.91b           		
-conda install iqtree=1.6.11	             	
-conda install minimap2=2.17	       
-conda install samtools=1.9       
-conda install blast=2.9.0       
-cpanm Parallel::ForkManager@2.02 	       
-cpanm FindBin@1.51
-conda install -c anaconda gcc_linux-64=7.3.0
-cpanm PDF::API2@2.034       
+conda install -c bioconda seqkit=0.8.0       
+conda install -c bioconda porechop=0.2.3_seqan2.1.1 -y
+conda install -c bioconda mafft=7.407 -y
+conda install -c bioconda Gblocks=0.91b -y
+conda install -c bioconda iqtree=1.6.11	 -y
+conda install -c bioconda minimap2=2.17  -y
+conda install -c bioconda samtools=1.9  -y
+conda install -c bioconda blast=2.9.0  -y    
+conda install -c bioconda perl-parallel-forkmanager -y
+conda install -c bioconda perl-findbin -y
+conda install -c bioconda perl-pdf-api2  -y
 ```
 
 To save some space, optionally remove unneeded files:    
@@ -120,6 +119,7 @@ git clone https://github.com/aramette/LORCAN.git
 5.	Test whether the pipeline is correctly installed:    
 ```
 cd LORCAN/1.8/lib
+source activate LORCAN-env
 perl lorcan.pl -h
 ```
 At this stage, you should see the *help* menu being listed in your console. Otherwise, the download was not successful.        
