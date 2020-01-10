@@ -7,7 +7,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 
 use strict; 
 #---------------------------------------------
-$VERSION     = 1.07;
+$VERSION     = 1.08;
 @ISA         = qw(Exporter);
 @EXPORT      =  qw(			
 					$R0_test_dependencies
@@ -1042,7 +1042,7 @@ sub R10_createTxtReport{ #combines log.txt and blast output
 	my @R10IN4=<R10in4>;
 	
 	foreach my $R (keys %TaxoLabels) { #replacing the whole array
-		s/$R/$TaxoLabels{$R}/ for @R10IN4;
+		s/$R$/$TaxoLabels{$R}/ for @R10IN4;
 	}	
 	if (grep {$_ eq "Type of analysis"} @R10IN4) {print OUTBC $_;}
 	if (grep {$_ eq "Model of substitution"} @R10IN4) {print OUTBC $_;}
