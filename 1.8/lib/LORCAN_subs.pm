@@ -91,7 +91,7 @@ sub R0_test_dependencies{
 
   
   #sub checking for Perl module dependencies
-	my @mod=("FindBin","Cwd","Parallel::ForkManager","PDF::API2","Tk::PNG");
+	my @mod=("FindBin","Cwd","Parallel::ForkManager","PDF::API2"); #,"Tk::PNG"
 	sub CheckModuleNotInstalled{
 		my @array = @_;my $ret;
 		if($Verbose) {say "Checking for Perl module dependencies:";}
