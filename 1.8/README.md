@@ -55,9 +55,9 @@ This is an example of *sample_id.txt* file with 3 barcoded samples:
 RunName:20190220_x4_Amplikon      
 RunDate:21.02.2019      	
 #      
-BC17:2019-067      	
-BC18:2019-068      	
-BC19:2019-069      
+BC16:mysample1:BiBi16S
+BC17:mysample2:BiBi16S
+BC18:mysample3:BiBi16S   
 ```
 
 ## INSTALLATION             
